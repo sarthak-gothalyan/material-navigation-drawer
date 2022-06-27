@@ -1,14 +1,15 @@
-import { Drawer } from '../common/drawer'
+import { SideDrawer } from '../common/sideDrawer'
 
 @Entry
 @Component
 struct Index {
 	@State vis: boolean = false
+	backgroundColor: string | Color = Color.White
 
 	build() {
 		Stack() {
 			Column() {
-				Button("CLick to open drawer")
+				Button("CLick to open side drawer")
 				.fontSize(20)
 				.fontWeight(FontWeight.Bold)
 				.onClick(() => {
@@ -27,15 +28,11 @@ struct Index {
 					console.log(this.vis + '')
 				})
 			})
-			.colorBlend(Color.Black)
-			.contrast(0)
-			.grayscale(0)
-			.brightness(0)
-			.saturate(0)
-			.blur(1)
+			//.opacity(this.vis ? 0.5 : 1)
+			//.backgroundColor(this.vis ? Color.Black : this.backgroundColor)
 
 			if(this.vis) {
-				Drawer()
+				SideDrawer({vis: $vis})
 			}
 		}
 		.width('100%')

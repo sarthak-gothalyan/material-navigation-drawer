@@ -2,7 +2,7 @@
 // .onFocus
 
 @Component
-struct Drawer {
+struct BottomDrawer {
 	menu: {page: string, icon: string | Resource}[] = [
 		{page: "Page 1", icon: $r('app.media.icon')},
 		{page: "Page 1", icon: $r('app.media.icon')},
@@ -11,7 +11,7 @@ struct Drawer {
 
 	@Builder
 	Item(page: string, icon: string | Resource) {
-		Flex({justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center}) {
+		Flex({justifyContent: FlexAlign.Start, alignContent: FlexAlign.Start}) {
 			Image(icon)
 				.objectFit(ImageFit.Cover)
 				.width(24)
@@ -36,14 +36,14 @@ struct Drawer {
 				}, (it, index) => index.toString())
 			}
 		}
-		.width(180)
-		.height('100%')
-		.position({x: 0, y: 0})
+		.width('100%')
+		.height(180)
+		.position({x: 0, y: 400})
 		.justifyContent(FlexAlign.Center)
-		.transition({ type: TransitionType.Insert, translate : {x:-180.0} })
-		.transition({ type: TransitionType.Delete, translate : {x:-180.0,} })
+		.transition({ type: TransitionType.Insert, translate : {y: 180.0} })
+		.transition({ type: TransitionType.Delete, translate : {y: 180.0} })
 		.backgroundColor(Color.White)
 	}
 }
 
-export { Drawer }
+export { BottomDrawer }

@@ -55,7 +55,10 @@
 					"type": "pageAbility"
 				},
 				"pages": [
-					"pages/index"
+					"pages/index",
+					"pages/p1",
+					"pages/p2",
+					"pages/p3"
 				],
 				"name": ".MainAbility",
 				"window": {
