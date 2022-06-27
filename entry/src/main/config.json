@@ -56,6 +56,7 @@
 				},
 				"pages": [
 					"pages/index",
+					"pages/index2",
 					"pages/p1",
 					"pages/p2",
 					"pages/p3"

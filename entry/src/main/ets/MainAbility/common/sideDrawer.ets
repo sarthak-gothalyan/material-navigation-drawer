@@ -30,15 +30,8 @@ struct SideDrawer {
 					.maxLines(1)
 			}
 			.padding(7)
-//			.onClick(() => {
-//				animateTo({ duration: 1000 }, () => {
-//					this.vis = false
-//				})
-//				console.log(page)
-//			})
 		}
 		.params({ text: 'this.Text' })
-
 	}
 
 	build() {
@@ -66,8 +59,10 @@ struct SideDrawer {
 			.height('100%')
 			.position({ x: 0, y: 0 })
 			.justifyContent(FlexAlign.Center)
-			.transition({ type: TransitionType.Insert, translate: { x: -180.0 } })
-			.transition({ type: TransitionType.Delete, translate: { x: -180.0, } })
+			.transition({ type: TransitionType.Insert, scale: { x: 0.0, centerX: 0.0 } })
+			.transition({ type: TransitionType.Delete, scale: { x: 0.0, centerX: 0.0 } })
+//			.transition({ type: TransitionType.Insert, translate: { x: -180.0 } })
+//			.transition({ type: TransitionType.Delete, translate: { x: -180.0, } })
 			.backgroundColor(Color.White)
 		}
 		.width('100%')

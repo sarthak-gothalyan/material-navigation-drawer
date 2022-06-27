@@ -1,4 +1,4 @@
-import { SideDrawer } from '../common/sideDrawer'
+import { BottomDrawer } from '../common/bottomDrawer'
 
 @Entry
 @Component
@@ -9,7 +9,7 @@ struct Index {
 	build() {
 		Stack() {
 			Column() {
-				Button("CLick to open side drawer")
+				Button("CLick to open bottom drawer")
 					.fontSize(20)
 					.fontWeight(FontWeight.Bold)
 					.onClick(() => {
@@ -30,7 +30,7 @@ struct Index {
 			})
 
 			if (this.vis) {
-				SideDrawer({ vis: $vis })
+				BottomDrawer({ vis: $vis })
 			}
 		}
 		.width('100%')
