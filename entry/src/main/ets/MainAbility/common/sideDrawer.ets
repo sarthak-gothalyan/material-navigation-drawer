@@ -57,12 +57,10 @@ struct SideDrawer {
 			}
 			.width(180)
 			.height('100%')
-			.position({ x: 0, y: 0 })
 			.justifyContent(FlexAlign.Center)
+			.position({ x: 0, y: 0 })
 			.transition({ type: TransitionType.Insert, scale: { x: 0.0, centerX: 0.0 } })
 			.transition({ type: TransitionType.Delete, scale: { x: 0.0, centerX: 0.0 } })
-//			.transition({ type: TransitionType.Insert, translate: { x: -180.0 } })
-//			.transition({ type: TransitionType.Delete, translate: { x: -180.0, } })
 			.backgroundColor(Color.White)
 		}
 		.width('100%')
