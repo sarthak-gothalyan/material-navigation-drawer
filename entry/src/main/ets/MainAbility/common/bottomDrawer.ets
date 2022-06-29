@@ -77,7 +77,7 @@ struct BottomDrawer {
 	}
 
 	pageTransition() {
-		PageTransitionExit({ duration: 1, curve: Curve.Ease })
+		PageTransitionExit({ duration: 1, curve: Curve.Linear })
 			.onExit(() => {
 				this.visible = false
 			})
