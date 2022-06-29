@@ -1,6 +1,6 @@
-import { MenuOption } from './menuOption'
+import router from '@system.router'
+import { MenuItemType, MenuOption } from './menuOption'
 import { Properties, MenuProperties } from './properties'
-
 
 @Component
 struct BottomDrawer {
@@ -24,20 +24,17 @@ struct BottomDrawer {
 					.width(this.menuModel.getIconWidth())
 					.height(this.menuModel.getIconWidth())
 					.margin({ right: 20 })
-				Text(page.getName())
+				Text(page.getValue())
 					.fontSize(this.menuModel.getFontSize())
-					.fontColor(this.menuModel.getFontColor())
+					.fontColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
 					.flexGrow(1)
 					.maxLines(1)
 			}
+			.backgroundColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
+			.borderRadius(this.menuModel.getBorderRadius())
 			.padding(this.menuModel.getPadding())
 		}
-		.onClick(() => {
-			animateTo({ duration: this.model.getAnimationDuration() }, () => {
-				this.visible = false
-			})
-		})
-		.params({ text: page.getName() })
+		.params({ text: page.getValue() })
 	}
 
 	build() {
@@ -56,7 +53,9 @@ struct BottomDrawer {
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
-							this.Item(it)
+							if(it.getItemType() == MenuItemType.Divider) Divider()
+							else if(it.getItemType() == MenuItemType.Subtitle) Text(it.getValue()).fontSize(this.menuModel.getSubtitleFontSize()).fontColor(this.menuModel.getSubtitleFontColor())
+							else this.Item(it)
 						}
 					}, (it, index) => index.toString())
 				}

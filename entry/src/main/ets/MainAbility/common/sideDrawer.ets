@@ -1,14 +1,17 @@
-import { MenuOption } from './menuOption'
+import router from '@system.router'
+import { MenuItemType, MenuOption } from './menuOption'
 import { Properties, MenuProperties } from './properties'
 
 @Component
 struct SideDrawer {
 	menu: MenuOption[]
 	@Link visible: boolean
+	@State selected: number = -1
 	@State model: SideDrawer.Model = new SideDrawer.Model('0vp', 0)
 	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
 
 	aboutToAppear() {
+		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
 		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model('0vp', 0)
 		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
@@ -23,15 +26,17 @@ struct SideDrawer {
 					.width(this.menuModel.getIconWidth())
 					.height(this.menuModel.getIconHeight())
 					.margin({ right: 20 })
-				Text(page.getName())
+				Text(page.getValue())
 					.fontSize(this.menuModel.getFontSize())
-					.fontColor(this.menuModel.getFontColor())
+					.fontColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
 					.flexGrow(1)
 					.maxLines(1)
 			}
+			.backgroundColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
+			.borderRadius(this.menuModel.getBorderRadius())
 			.padding(this.menuModel.getPadding())
 		}
-		.params({ text: page.getName() })
+		.params({ text: page.getValue() })
 	}
 
 	build() {
@@ -50,7 +55,9 @@ struct SideDrawer {
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
-							this.Item(it)
+							if(it.getItemType() == MenuItemType.Divider) Divider()
+							else if(it.getItemType() == MenuItemType.Subtitle) Text(it.getValue()).fontSize(this.menuModel.getSubtitleFontSize()).fontColor(this.menuModel.getSubtitleFontColor())
+							else this.Item(it)
 						}
 					}, (it, index) => index.toString())
 				}
