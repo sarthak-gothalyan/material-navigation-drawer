@@ -32,6 +32,11 @@ struct BottomDrawer {
 			}
 			.padding(this.menuModel.getPadding())
 		}
+		.onClick(() => {
+			animateTo({ duration: this.model.getAnimationDuration() }, () => {
+				this.visible = false
+			})
+		})
 		.params({ text: page.getName() })
 	}
 
@@ -69,6 +74,13 @@ struct BottomDrawer {
 		}
 		.width('100%')
 		.height('100%')
+	}
+
+	pageTransition() {
+		PageTransitionExit({ duration: 1, curve: Curve.Ease })
+			.onExit(() => {
+				this.visible = false
+			})
 	}
 }
 

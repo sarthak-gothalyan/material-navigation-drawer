@@ -67,6 +67,13 @@ struct SideDrawer {
 		.width('100%')
 		.height('100%')
 	}
+
+	pageTransition() {
+		PageTransitionExit({ duration: 1, curve: Curve.Ease })
+		.onExit(() => {
+			this.visible = false
+		})
+	}
 }
 
 namespace SideDrawer {

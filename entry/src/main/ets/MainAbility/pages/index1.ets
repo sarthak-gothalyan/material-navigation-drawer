@@ -7,7 +7,8 @@ struct Index {
 	menu: MenuOption[] = [
 		new MenuOption("Page 1", 'pages/p1', $r('app.media.icon')),
 		new MenuOption("Page 2", 'pages/p2', $r('app.media.icon')),
-		new MenuOption("Page 3", 'pages/p3', $r('app.media.icon'))
+		new MenuOption("Page 3", 'pages/p3', $r('app.media.icon')),
+		new MenuOption("Index 2", 'pages/index2', $r('app.media.icon')),
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model('180vp', 100)
