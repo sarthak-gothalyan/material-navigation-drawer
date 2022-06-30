@@ -16,6 +16,15 @@ struct Index {
 	model: BottomDrawer.Model = new BottomDrawer.Model('180vp', 100)
 	menuModel: BottomDrawer.MenuModel = new BottomDrawer.MenuModel('30vp', '24vp', '24vp')
 
+	@Builder
+	header(): any {
+		Column() {
+			Image($r('app.media.icon')).width('24vp').height('24vp')
+			Text('name').fontSize('20vp')
+			Text('details').fontSize('20vp').opacity(0.5)
+		}
+	}
+
 	aboutToAppear() {
 		this.menuModel.setActiveBackgroundColor(Color.Green)
 		this.menuModel.setActiveTextColor(Color.Blue)
@@ -47,6 +56,7 @@ struct Index {
 			if (this.vis) {
 				BottomDrawer({
 					menu: this.menu,
+					header: this.header(),
 					visible: $vis,
 					model: this.model,
 					menuModel: this.menuModel

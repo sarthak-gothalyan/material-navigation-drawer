@@ -5,6 +5,7 @@ import { Properties, MenuProperties } from './properties'
 @Component
 struct SideDrawer {
 	menu: MenuOption[]
+	@BuilderParam header: () => any
 	@Link visible: boolean
 	@State selected: number = -1
 	@State model: SideDrawer.Model = new SideDrawer.Model('0vp', 0)
@@ -52,6 +53,7 @@ struct SideDrawer {
 				.backgroundColor("#80dbdbdb")
 
 			Column() {
+				if(this.header != null && this.header != undefined) this.header()
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {

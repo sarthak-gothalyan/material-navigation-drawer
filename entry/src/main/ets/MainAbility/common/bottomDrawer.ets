@@ -5,6 +5,7 @@ import { Properties, MenuProperties } from './properties'
 @Component
 struct BottomDrawer {
 	menu: MenuOption[]
+	@BuilderParam header: () => any
 	@Link visible: boolean
 	@State model: BottomDrawer.Model = new BottomDrawer.Model('0vp', 0)
 	@State menuModel: BottomDrawer.MenuModel = new BottomDrawer.MenuModel('0vp', '0vp', '0vp')
@@ -50,6 +51,7 @@ struct BottomDrawer {
 				.backgroundColor("#80dbdbdb")
 
 			Column() {
+				if(this.header != null && this.header != undefined) this.header()
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
