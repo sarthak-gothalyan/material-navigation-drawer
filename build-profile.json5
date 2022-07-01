@@ -22,6 +22,10 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "navigationdrawer",
+			"srcPath": "./navigationdrawer"
 		}
 	]
 }

@@ -1,6 +1,21 @@
+/*
+ * Copyright (c) 2022 Application Library Engineering Group.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import router from '@system.router'
 import { MenuItemType, MenuOption } from './menuOption'
-import { Properties, MenuProperties } from './properties'
+import { DrawerSize, Properties, MenuProperties } from './properties'
 
 @Component
 struct SideDrawer {
@@ -8,14 +23,15 @@ struct SideDrawer {
 	@BuilderParam header: () => any
 	@Link visible: boolean
 	@State selected: number = -1
-	@State model: SideDrawer.Model = new SideDrawer.Model('0vp', 0)
+	@State model: SideDrawer.Model = new SideDrawer.Model(0, DrawerSize.Small)
 	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
 
 	aboutToAppear() {
 		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
-		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model('0vp', 0)
+		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model(0, DrawerSize.Small)
 		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
+		if(this.header == null || this.header == undefined) this.header = () => Column().width('0vp').height('0vp')
 	}
 
 	@Builder
@@ -53,7 +69,8 @@ struct SideDrawer {
 				.backgroundColor("#80dbdbdb")
 
 			Column() {
-				if(this.header != null && this.header != undefined) this.header()
+				if (this.header != null && this.header != undefined) this.header()
+
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
@@ -64,7 +81,7 @@ struct SideDrawer {
 					}, (it, index) => index.toString())
 				}
 			}
-			.width(this.model.getWidth())
+			.width(this.model.getSize())
 			.height('100%')
 			.justifyContent(FlexAlign.Start)
 			.position({ x: 0, y: 0 })
@@ -87,28 +104,8 @@ struct SideDrawer {
 
 namespace SideDrawer {
 	export class Model extends Properties{
-		private width: Length = '0vp'
-
-		constructor(width: Length, animationDuration: number) {
-			super(animationDuration)
-			if(width == null || width == undefined) width = '0vp'
-			this.width = width
-		}
-
-		setWidth(width: Length): Model {
-			if(width == null || width == undefined) width = '0vp'
-			this.width = width
-			return this
-		}
-
-		getWidth(): Length {
-			return this.width
-		}
-
-		reset(): Model {
-			super.reset()
-			this.width = '0vp'
-			return this
+		constructor(animationDuration: number, size: DrawerSize) {
+			super(animationDuration, size)
 		}
 	}
 

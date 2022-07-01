@@ -1,19 +1,37 @@
+/*
+ * Copyright (c) 2022 Application Library Engineering Group.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import router from '@system.router'
 import { MenuItemType, MenuOption } from './menuOption'
-import { Properties, MenuProperties } from './properties'
+import { DrawerSize, Properties, MenuProperties } from './properties'
 
 @Component
-struct BottomDrawer {
+struct SideDrawer {
 	menu: MenuOption[]
 	@BuilderParam header: () => any
 	@Link visible: boolean
-	@State model: BottomDrawer.Model = new BottomDrawer.Model('0vp', 0)
-	@State menuModel: BottomDrawer.MenuModel = new BottomDrawer.MenuModel('0vp', '0vp', '0vp')
+	@State selected: number = -1
+	@State model: SideDrawer.Model = new SideDrawer.Model(0, DrawerSize.Small)
+	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
 
 	aboutToAppear() {
+		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
-		if(this.model == null || this.model == undefined) this.model = new BottomDrawer.Model('0vp', 0)
-		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new BottomDrawer.MenuModel('0vp', '0vp', '0vp')
+		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model(0, DrawerSize.Small)
+		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
+		//if(this.header == null || this.header == undefined) this.header = () => { Column().width('0vp').height('0vp') }
 	}
 
 	@Builder
@@ -23,7 +41,7 @@ struct BottomDrawer {
 				Image(page.getIcon())
 					.objectFit(ImageFit.Cover)
 					.width(this.menuModel.getIconWidth())
-					.height(this.menuModel.getIconWidth())
+					.height(this.menuModel.getIconHeight())
 					.margin({ right: 20 })
 				Text(page.getValue())
 					.fontSize(this.menuModel.getFontSize())
@@ -51,7 +69,10 @@ struct BottomDrawer {
 				.backgroundColor("#80dbdbdb")
 
 			Column() {
-				if(this.header != null && this.header != undefined) this.header()
+				//Column() {
+					//if (this.header != null && this.header != undefined) this.header()
+				//}
+
 				List({space: '10vp'}) {
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
@@ -62,14 +83,12 @@ struct BottomDrawer {
 					}, (it, index) => index.toString())
 				}
 			}
-			.width('100%')
-			.height(this.model.getHeight())
-			.markAnchor({ y: '100%' })
-			.position({ y: '100%' })
+			.width(this.model.getSize())
+			.height('100%')
 			.justifyContent(FlexAlign.Start)
-			.alignItems(HorizontalAlign.Start)
-			.transition({ type: TransitionType.Insert, scale: { y: 0.0, centerY: '100%' } })
-			.transition({ type: TransitionType.Delete, scale: { y: 0.0, centerY: '100%' } })
+			.position({ x: 0, y: 0 })
+			.transition({ type: TransitionType.Insert, scale: { x: 0.0, centerX: 0.0 } })
+			.transition({ type: TransitionType.Delete, scale: { x: 0.0, centerX: 0.0 } })
 			.backgroundColor(this.model.getBackgroundColor())
 			.padding('7vp')
 		}
@@ -79,36 +98,16 @@ struct BottomDrawer {
 
 	pageTransition() {
 		PageTransitionExit({ duration: 1, curve: Curve.Linear })
-			.onExit(() => {
-				this.visible = false
-			})
+		.onExit(() => {
+			this.visible = false
+		})
 	}
 }
 
-namespace BottomDrawer {
+namespace SideDrawer {
 	export class Model extends Properties{
-		private height: Length = '0vp'
-
-		constructor(height: Length, animationDuration: number) {
-			super(animationDuration)
-			if(height == null || height == undefined) height = '0vp'
-			this.height = height
-		}
-
-		setHeight(height: Length): Model {
-			if(height == null || height == undefined) height = '0vp'
-			this.height = height
-			return this
-		}
-
-		getHeight(): Length {
-			return this.height
-		}
-
-		reset(): Model {
-			super.reset()
-			this.height = '0vp'
-			return this
+		constructor(animationDuration: number, size: DrawerSize) {
+			super(animationDuration, size)
 		}
 	}
 
@@ -119,4 +118,4 @@ namespace BottomDrawer {
 	}
 }
 
-export { BottomDrawer }
+export { SideDrawer }
