@@ -58,7 +58,7 @@ struct P1 {
 				SideDrawer({
 					menu: this.menu,
 					visible: $vis,
-					header: null,
+					//header: null,
 					model: this.model,
 					menuModel: this.menuModel
 				})

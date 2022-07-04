@@ -20,7 +20,7 @@ import { DrawerSize, Properties, MenuProperties } from './properties'
 @Component
 struct SideDrawer {
 	menu: MenuOption[]
-	@BuilderParam header: () => any
+	//@BuilderParam header: () => any
 	@Link visible: boolean
 	@State selected: number = -1
 	@State model: SideDrawer.Model = new SideDrawer.Model(0, DrawerSize.Small)
@@ -70,11 +70,23 @@ struct SideDrawer {
 
 			Column() {
 				List({space: '10vp'}) {
-					if(this.header != null && this.header != undefined) {
+//					if(this.header != null && this.header != undefined) {
+//						ListItem() {
+//							this.header()
+//						}
+//						.height('100vp')
+//					}
+
+					if(this.menuModel.getHasHeader()) {
 						ListItem() {
-							this.header()
+							Column() {
+								Image(this.menuModel.getHeaderIcon()).width(this.menuModel.getHeaderIconHeight()).height(this.menuModel.getHeaderIconHeight())
+								Text(this.menuModel.getHeaderName()).fontSize(this.menuModel.getHeaderFontSize())
+								Text(this.menuModel.getHeaderMail()).fontSize(this.menuModel.getHeaderFontSize()).opacity(0.5)
+							}
+							.width('100%')
 						}
-						.height('100vp')
+						.height(this.menuModel.getHeaderHeight())
 					}
 
 					ForEach(this.menu, (it: MenuOption) => {

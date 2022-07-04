@@ -34,6 +34,14 @@ struct Index {
 	aboutToAppear() {
 		this.menuModel.setActiveBackgroundColor(Color.Green)
 		this.menuModel.setActiveTextColor(Color.Blue)
+		this.menuModel.setHasHeader(true)
+		this.menuModel.setHeaderIcon($r('app.media.icon'))
+		this.menuModel.setIconHeight('24vp')
+		this.menuModel.setIconWidth('24vp')
+		this.menuModel.setHeaderHeight('100vp')
+		this.menuModel.setHeaderFontSize('24vp')
+		this.menuModel.setHeaderName('name')
+		this.menuModel.setHeaderMail('mail')
 	}
 
 	@Builder
@@ -43,8 +51,7 @@ struct Index {
 			Text('name').fontSize('20vp')
 			Text('details').fontSize('20vp').opacity(0.5)
 		}
-		.width('100vp')
-		.backgroundColor(Color.Red)
+		.width('100%')
 	}
 
 	build() {
@@ -62,7 +69,7 @@ struct Index {
 				SideDrawer({
 					menu: this.menu,
 					visible: $vis,
-					header: this.customDesign(),
+					//header: this.customDesign(),
 					model: this.model,
 					menuModel: this.menuModel
 				})
