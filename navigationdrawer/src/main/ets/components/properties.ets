@@ -250,6 +250,7 @@ export class HeaderProperties {
 	private iconWidth: Length
 	private backgroundColor: string | Color
 	private borderRadius: Length
+	private callback: () => void
 
 	constructor(name: string, mail: string, icon: string | Resource) {
 		if(name == null || name == undefined) name = ''
@@ -264,6 +265,7 @@ export class HeaderProperties {
 		this.height = '100vp'
 		this.backgroundColor = Color.White
 		this.borderRadius = 0
+		this.callback = null
 	}
 
 	setIcon(icon: string | Resource): HeaderProperties {
@@ -347,6 +349,15 @@ export class HeaderProperties {
 		return this.borderRadius
 	}
 
+	setCallback(callback: () => void): HeaderProperties {
+		if(callback != null && callback != undefined) this.callback = callback
+		return this
+	}
+
+	getCallBack(): () => void {
+		return this.callback
+	}
+
 	reset(): HeaderProperties {
 		this.name = ''
 		this.mail = ''
@@ -357,6 +368,7 @@ export class HeaderProperties {
 		this.height = '0vp'
 		this.backgroundColor = Color.Black
 		this.borderRadius = 0
+		this.callback = null
 		return this
 	}
 }

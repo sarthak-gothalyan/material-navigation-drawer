@@ -41,6 +41,7 @@ struct Index {
 		this.headerModel.setFontSize('24vp')
 		this.headerModel.setIconHeight('24vp')
 		this.headerModel.setIconWidth('24vp')
+		this.headerModel.setCallback(() => {console.log("callback")})
 	}
 
 	@Builder

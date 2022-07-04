@@ -89,6 +89,9 @@ struct SideDrawer {
 							.borderRadius(this.headerModel.getBorderRadius())
 						}
 						.height(this.headerModel.getHeight())
+						.onClick(() => {
+							this.headerModel.getCallBack()()
+						})
 					}
 
 					ForEach(this.menu, (it: MenuOption) => {
