@@ -15,7 +15,7 @@
 
 import router from '@system.router'
 import { MenuItemType, MenuOption } from './menuOption'
-import { DrawerSize, Properties, MenuProperties } from './properties'
+import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
 @Component
 struct SideDrawer {
@@ -24,6 +24,7 @@ struct SideDrawer {
 	@Link visible: boolean
 	@State selected: number = -1
 	@State model: SideDrawer.Model = new SideDrawer.Model(0, DrawerSize.Small)
+	@State headerModel: SideDrawer.HeaderModel = undefined
 	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
 
 	aboutToAppear() {
@@ -31,7 +32,6 @@ struct SideDrawer {
 		if(this.menu == null || this.menu == undefined) this.menu = []
 		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model(0, DrawerSize.Small)
 		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
-		//if(this.header == null || this.header == undefined) this.header = () => { Column().width('0vp').height('0vp') }
 	}
 
 	@Builder
@@ -77,16 +77,18 @@ struct SideDrawer {
 //						.height('100vp')
 //					}
 
-					if(this.menuModel.getHasHeader()) {
+					if(this.headerModel != null && this.headerModel != undefined) {
 						ListItem() {
 							Column() {
-								Image(this.menuModel.getHeaderIcon()).width(this.menuModel.getHeaderIconHeight()).height(this.menuModel.getHeaderIconHeight())
-								Text(this.menuModel.getHeaderName()).fontSize(this.menuModel.getHeaderFontSize())
-								Text(this.menuModel.getHeaderMail()).fontSize(this.menuModel.getHeaderFontSize()).opacity(0.5)
+								Image(this.headerModel.getIcon()).width(this.headerModel.getIconHeight()).height(this.headerModel.getIconHeight())
+								Text(this.headerModel.getName()).fontSize(this.headerModel.getFontSize())
+								Text(this.headerModel.getMail()).fontSize(this.headerModel.getFontSize()).opacity(0.5)
 							}
 							.width('100%')
+							.backgroundColor(this.headerModel.getBackgroundColor())
+							.borderRadius(this.headerModel.getBorderRadius())
 						}
-						.height(this.menuModel.getHeaderHeight())
+						.height(this.headerModel.getHeight())
 					}
 
 					ForEach(this.menu, (it: MenuOption) => {
@@ -129,6 +131,12 @@ namespace SideDrawer {
 	export class MenuModel extends MenuProperties {
 		constructor(height: Length, iconHeight: Length, iconWidth: Length) {
 			super(height, iconHeight, iconWidth)
+		}
+	}
+
+	export class HeaderModel extends HeaderProperties {
+		constructor(name: string, mail: string, icon: string | Resource) {
+			super(name, mail, icon)
 		}
 	}
 }

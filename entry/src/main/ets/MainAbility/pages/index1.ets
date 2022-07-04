@@ -30,18 +30,17 @@ struct Index {
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model(100, DrawerSize.Small)
 	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('180vp', '24vp', '24vp')
+	headerModel: SideDrawer.HeaderModel = new SideDrawer.HeaderModel('name', 'mail', $r('app.media.icon'))
 
 	aboutToAppear() {
 		this.menuModel.setActiveBackgroundColor(Color.Green)
 		this.menuModel.setActiveTextColor(Color.Blue)
-		this.menuModel.setHasHeader(true)
-		this.menuModel.setHeaderIcon($r('app.media.icon'))
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
-		this.menuModel.setHeaderHeight('100vp')
-		this.menuModel.setHeaderFontSize('24vp')
-		this.menuModel.setHeaderName('name')
-		this.menuModel.setHeaderMail('mail')
+		this.headerModel.setHeight('100vp')
+		this.headerModel.setFontSize('24vp')
+		this.headerModel.setIconHeight('24vp')
+		this.headerModel.setIconWidth('24vp')
 	}
 
 	@Builder
@@ -69,7 +68,7 @@ struct Index {
 				SideDrawer({
 					menu: this.menu,
 					visible: $vis,
-					//header: this.customDesign(),
+					headerModel: this.headerModel,
 					model: this.model,
 					menuModel: this.menuModel
 				})

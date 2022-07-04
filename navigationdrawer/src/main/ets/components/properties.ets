@@ -86,14 +86,7 @@ export class MenuProperties {
 	private activeTextColor: string | Color
 	private borderRadius: Length
 	private padding: Length | Padding
-	private hasHeader: boolean
-	private headerIcon: string | Resource
-	private headerName: string
-	private headerMail: string
-	private headerFontSize: Length
-	private headerIconHeight: Length
-	private headerIconWidth: Length
-	private headerHeight: Length
+
 
 	constructor(height: Length, iconHeight: Length, iconWidth: Length) {
 		if(height == null || height == undefined) height = '0vp'
@@ -111,14 +104,6 @@ export class MenuProperties {
 		this.activeTextColor = Color.Black
 		this.borderRadius = '0vp'
 		this.padding = '0vp'
-		this.hasHeader = false
-		this.headerIcon = ''
-		this.headerName = ''
-		this.headerMail = ''
-		this.headerFontSize = '20vp'
-		this.headerIconHeight = '24vp'
-		this.headerIconWidth = '24vp'
-		this.headerHeight = '100vp'
 	}
 
 	setHeight(height: Length): MenuProperties {
@@ -241,78 +226,6 @@ export class MenuProperties {
 		return this.padding
 	}
 
-	setHasHeader(hasHeader: boolean): MenuProperties {
-		if(hasHeader != null && hasHeader != undefined) this.hasHeader = hasHeader
-		return this
-	}
-
-	getHasHeader(): boolean {
-		return this.hasHeader
-	}
-
-	setHeaderIcon(headerIcon: string | Resource): MenuProperties {
-		if(headerIcon != null && headerIcon != undefined) this.headerIcon = headerIcon
-		return this
-	}
-
-	getHeaderIcon(): string | Resource {
-		return this.headerIcon
-	}
-
-	setHeaderName(headerName: string): MenuProperties {
-		if(headerName != null && headerName != undefined) this.headerName = headerName
-		return this
-	}
-
-	getHeaderName(): string {
-		return this.headerName
-	}
-
-	setHeaderMail(headerMail: string): MenuProperties {
-		if(headerMail != null && headerMail != undefined) this.headerMail = headerMail
-		return this
-	}
-
-	getHeaderMail(): string {
-		return this.headerMail
-	}
-
-	setHeaderFontSize(headerFontSize: Length): MenuProperties {
-		if(headerFontSize != null && headerFontSize != undefined) this.headerFontSize = headerFontSize
-		return this
-	}
-
-	getHeaderFontSize(): Length {
-		return this.headerFontSize
-	}
-
-	setHeaderIconHeight(headerIconHeight: Length): MenuProperties {
-		if(headerIconHeight != null && headerIconHeight != undefined) this.headerIconHeight = headerIconHeight
-		return this
-	}
-
-	getHeaderIconHeight(): Length {
-		return this.headerIconHeight
-	}
-
-	setHeaderIconWidth(headerIconWidth: Length): MenuProperties {
-		if(headerIconWidth != null && headerIconWidth != undefined) this.headerIconWidth = headerIconWidth
-		return this
-	}
-
-	getHeaderIconWidth(): Length {
-		return this.headerIconWidth
-	}
-
-	setHeaderHeight(headerHeight: Length): MenuProperties {
-		if(headerHeight != null && headerHeight != undefined) this.headerHeight = headerHeight
-		return this
-	}
-
-	getHeaderHeight(): Length {
-		return this.headerHeight
-	}
-
 	reset(): MenuProperties {
 		this.iconHeight = '0vp'
 		this.iconWidth = '0vp'
@@ -323,14 +236,127 @@ export class MenuProperties {
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
 		this.padding = {}
-		this.hasHeader = false
-		this.headerIcon = ''
-		this.headerName = ''
-		this.headerMail = ''
-		this.headerFontSize = '20vp'
-		this.headerIconHeight = '24vp'
-		this.headerIconWidth = '24vp'
-		this.headerHeight = '100vp'
+		return this
+	}
+}
+
+export class HeaderProperties {
+	private icon: string | Resource
+	private name: string
+	private mail: string
+	private height: Length
+	private fontSize: Length
+	private iconHeight: Length
+	private iconWidth: Length
+	private backgroundColor: string | Color
+	private borderRadius: Length
+
+	constructor(name: string, mail: string, icon: string | Resource) {
+		if(name == null || name == undefined) name = ''
+		if(mail == null || mail == undefined) mail = ''
+		if(icon == null || icon == undefined) icon = ''
+		this.name = name
+		this.mail = mail
+		this.icon = icon
+		this.fontSize = '20vp'
+		this.iconHeight = '24vp'
+		this.iconWidth = '24vp'
+		this.height = '100vp'
+		this.backgroundColor = Color.White
+		this.borderRadius = 0
+	}
+
+	setIcon(icon: string | Resource): HeaderProperties {
+		if(icon != null && icon != undefined) this.icon = icon
+		return this
+	}
+
+	getIcon(): string | Resource {
+		return this.icon
+	}
+
+	setName(name: string): HeaderProperties {
+		if(name != null && name != undefined) this.name = name
+		return this
+	}
+
+	getName(): string {
+		return this.name
+	}
+
+	setMail(mail: string): HeaderProperties {
+		if(mail != null && mail != undefined) this.mail = mail
+		return this
+	}
+
+	getMail(): string {
+		return this.mail
+	}
+
+	setFontSize(fontSize: Length): HeaderProperties {
+		if(fontSize != null && fontSize != undefined) this.fontSize = fontSize
+		return this
+	}
+
+	getFontSize(): Length {
+		return this.fontSize
+	}
+
+	setIconHeight(iconHeight: Length): HeaderProperties {
+		if(iconHeight != null && iconHeight != undefined) this.iconHeight = iconHeight
+		return this
+	}
+
+	getIconHeight(): Length {
+		return this.iconHeight
+	}
+
+	setIconWidth(iconWidth: Length): HeaderProperties {
+		if(iconWidth != null && iconWidth != undefined) this.iconWidth = iconWidth
+		return this
+	}
+
+	getIconWidth(): Length {
+		return this.iconWidth
+	}
+
+	setHeight(height: Length): HeaderProperties {
+		if(height != null && height != undefined) this.height = height
+		return this
+	}
+
+	getHeight(): Length {
+		return this.height
+	}
+
+	setBackgroundColor(backgroundColor: string | Color): HeaderProperties {
+		if(backgroundColor != null && backgroundColor != undefined) this.backgroundColor = backgroundColor
+		return this
+	}
+
+	getBackgroundColor(): string | Color {
+		return this.backgroundColor
+	}
+
+	setBorderRadius(borderRadius: Length): HeaderProperties {
+		if(borderRadius != null && borderRadius != undefined) this.borderRadius = borderRadius
+		return this
+	}
+
+	getBorderRadius(): Length {
+		return this.borderRadius
+	}
+
+	reset(): HeaderProperties {
+		this.name = ''
+		this.mail = ''
+		this.icon = ''
+		this.fontSize = '0vp'
+		this.iconHeight = '0vpvp'
+		this.iconWidth = '0vpvp'
+		this.height = '0vp'
+		this.backgroundColor = Color.Black
+		this.borderRadius = 0
 		return this
 	}
 }
