@@ -69,11 +69,14 @@ struct SideDrawer {
 				.backgroundColor("#80dbdbdb")
 
 			Column() {
-				//Column() {
-					//if (this.header != null && this.header != undefined) this.header()
-				//}
-
 				List({space: '10vp'}) {
+					if(this.header != null && this.header != undefined) {
+						ListItem() {
+							this.header()
+						}
+						.height('100vp')
+					}
+
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
 							if(it.getItemType() == MenuItemType.Divider) Divider()

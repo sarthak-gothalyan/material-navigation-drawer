@@ -28,7 +28,7 @@ struct Index {
 		new MenuOption(MenuItemType.Page, "Index 1", 'pages/index1', $r('app.media.icon'))
 	]
 	backgroundColor: string | Color = Color.White
-	model: SideDrawer.Model = new SideDrawer.Model(100, 0)
+	model: SideDrawer.Model = new SideDrawer.Model(100, DrawerSize.Small)
 	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('180vp', '24vp', '24vp')
 
 	aboutToAppear() {
@@ -43,6 +43,8 @@ struct Index {
 			Text('name').fontSize('20vp')
 			Text('details').fontSize('20vp').opacity(0.5)
 		}
+		.width('100vp')
+		.backgroundColor(Color.Red)
 	}
 
 	build() {
