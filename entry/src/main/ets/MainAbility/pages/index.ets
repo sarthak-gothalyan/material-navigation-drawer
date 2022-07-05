@@ -20,28 +20,31 @@ import { DrawerSize, MenuItemType, MenuOption, SideDrawer } from '@ohos/navigati
 struct Index {
 	@State vis: boolean = false
 	menu: MenuOption[] = [
-		new MenuOption(MenuItemType.Subtitle, 'Pages'),
+		new MenuOption(MenuItemType.Subtitle, 'Mail'),
+		new MenuOption(MenuItemType.Page, "Inbox", 'pages/index1', $r('app.media.inbox')),
+		new MenuOption(MenuItemType.Page, "Outbox", 'pages/p1', $r('app.media.send')),
+		new MenuOption(MenuItemType.Page, "Favourites", 'pages/p2', $r('app.media.favorite')),
+		new MenuOption(MenuItemType.Page, "Delete", 'pages/p3', $r('app.media.delete')),
 		new MenuOption(MenuItemType.Divider),
-		new MenuOption(MenuItemType.Page, "Page 1", 'pages/p1', $r('app.media.icon')),
-		new MenuOption(MenuItemType.Page, "Page 2", 'pages/p2', $r('app.media.icon')),
-		new MenuOption(MenuItemType.Page, "Page 3", 'pages/p3', $r('app.media.icon')),
-		new MenuOption(MenuItemType.Page, "Index 1", 'pages/index1', $r('app.media.icon'))
+		new MenuOption(MenuItemType.Page, "Settings", 'pages/p1', $r('app.media.settings')),
+		new MenuOption(MenuItemType.Page, "Help & Feedback", 'pages/p2', $r('app.media.help')),
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model(100, DrawerSize.Small)
 	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('180vp', '24vp', '24vp')
-	headerModel: SideDrawer.HeaderModel = new SideDrawer.HeaderModel('name', 'mail', $r('app.media.icon'))
 
 	aboutToAppear() {
-		this.menuModel.setActiveBackgroundColor(Color.Green)
-		this.menuModel.setActiveTextColor(Color.Blue)
+		this.model.setSize(DrawerSize.Medium)
+
+		this.menuModel.setActiveBackgroundColor('#A020F0')
+		this.menuModel.setActiveTextColor(Color.Black)
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
-		this.headerModel.setHeight('100vp')
-		this.headerModel.setFontSize('24vp')
-		this.headerModel.setIconHeight('24vp')
-		this.headerModel.setIconWidth('24vp')
-		this.headerModel.setCallback(() => {console.log("callback")})
+		this.menuModel.setSubtitleFontSize('21vp')
+		this.menuModel.setFontSize('18vp')
+		this.menuModel.setHeight('56vp')
+		this.menuModel.setPadding('16vp')
+		this.menuModel.setBorderRadius('20vp')
 	}
 
 	@Builder
@@ -69,7 +72,6 @@ struct Index {
 				SideDrawer({
 					menu: this.menu,
 					visible: $vis,
-					headerModel: this.headerModel,
 					model: this.model,
 					menuModel: this.menuModel
 				})

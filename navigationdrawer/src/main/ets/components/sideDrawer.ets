@@ -39,7 +39,7 @@ struct SideDrawer {
 		Navigator({target: page.getPath(), type: NavigationType.Push}) {
 			Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center }) {
 				Image(page.getIcon())
-					.objectFit(ImageFit.Cover)
+					.objectFit(ImageFit.Contain)
 					.width(this.menuModel.getIconWidth())
 					.height(this.menuModel.getIconHeight())
 					.margin({ right: 20 })
@@ -96,8 +96,8 @@ struct SideDrawer {
 
 					ForEach(this.menu, (it: MenuOption) => {
 						ListItem() {
-							if(it.getItemType() == MenuItemType.Divider) Divider()
-							else if(it.getItemType() == MenuItemType.Subtitle) Text(it.getValue()).fontSize(this.menuModel.getSubtitleFontSize()).fontColor(this.menuModel.getSubtitleFontColor())
+							if(it.getItemType() == MenuItemType.Divider) Divider().width('100%').height('2vp')
+							else if(it.getItemType() == MenuItemType.Subtitle) Text(it.getValue()).fontSize(this.menuModel.getSubtitleFontSize()).fontColor(this.menuModel.getSubtitleFontColor()).padding(this.menuModel.getPadding())
 							else this.Item(it)
 						}
 					}, (it, index) => index.toString())
