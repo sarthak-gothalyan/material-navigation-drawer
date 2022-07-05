@@ -21,7 +21,7 @@ struct Index {
 	@State vis: boolean = false
 	menu: MenuOption[] = [
 		new MenuOption(MenuItemType.Subtitle, 'Mail'),
-		new MenuOption(MenuItemType.Page, "Inbox", 'pages/index1', $r('app.media.inbox')),
+		new MenuOption(MenuItemType.Page, "Inbox", 'pages/index', $r('app.media.inbox')),
 		new MenuOption(MenuItemType.Page, "Outbox", 'pages/p1', $r('app.media.send')),
 		new MenuOption(MenuItemType.Page, "Favourites", 'pages/p2', $r('app.media.favorite')),
 		new MenuOption(MenuItemType.Page, "Delete", 'pages/p3', $r('app.media.delete')),

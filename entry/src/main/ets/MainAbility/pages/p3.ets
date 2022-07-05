@@ -25,7 +25,7 @@ struct P1 {
 		new MenuOption(MenuItemType.Page, "Page 1", 'pages/p1', $r('app.media.icon')),
 		new MenuOption(MenuItemType.Page, "Page 2", 'pages/p2', $r('app.media.icon')),
 		new MenuOption(MenuItemType.Page, "Page 3", 'pages/p3', $r('app.media.icon')),
-		new MenuOption(MenuItemType.Page, "Index 1", 'pages/index1', $r('app.media.icon'))
+		new MenuOption(MenuItemType.Page, "Index", 'pages/index', $r('app.media.icon'))
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model(100, 0)

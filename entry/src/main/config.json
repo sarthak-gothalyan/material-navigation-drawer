@@ -55,7 +55,7 @@
 					"type": "pageAbility"
 				},
 				"pages": [
-					"pages/index1",
+					"pages/index",
 					"pages/p1",
 					"pages/p2",
 					"pages/p3"
