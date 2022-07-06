@@ -10,6 +10,6 @@
   "repository": {},
   "license": "ISC",
   "dependencies": {
-    "@ohos/navigationdrawer": "file:../navigationdrawer"
+    "@ohos/navigation-drawer": "file:../navigationdrawer"
   }
 }

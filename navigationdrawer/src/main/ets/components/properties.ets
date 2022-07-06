@@ -14,32 +14,18 @@
  */
 
 export enum DrawerSize {
-	Small,
-	Medium,
-	Big
+	Small = '20%',
+	Medium = '50%',
+	Big = '100%'
 }
 
 export class Properties {
-	private animationDuration: number
 	private size: DrawerSize
 	private backgroundColor: string | Color
 
-	constructor(animationDuration: number, size: DrawerSize) {
-		if(animationDuration == null || animationDuration == undefined) animationDuration = 0
-		if(size == null || size == undefined) size = DrawerSize.Small
-		this.animationDuration = animationDuration
-		this.size = size
+	constructor() {
+		this.size = DrawerSize.Small
 		this.backgroundColor = Color.White
-	}
-
-	setAnimationDuration(animationDuration: number): Properties {
-		if(animationDuration == null || animationDuration == undefined) animationDuration = 0
-		this.animationDuration = animationDuration
-		return this
-	}
-
-	getAnimationDuration(): number {
-		return this.animationDuration
 	}
 
 	setSize(size: DrawerSize): Properties {
@@ -50,9 +36,9 @@ export class Properties {
 	}
 
 	getSize(): Length {
-		if(this.size == DrawerSize.Small) return '33%'
-		else if(this.size == DrawerSize.Medium) return '50%'
-		return '100%'
+		if(this.size == DrawerSize.Small) return DrawerSize.Small
+		else if(this.size == DrawerSize.Medium) return DrawerSize.Medium
+		return DrawerSize.Big
 	}
 
 	setBackgroundColor(backgroundColor: string | Color): Properties {
@@ -66,7 +52,6 @@ export class Properties {
 	}
 
 	reset(): Properties {
-		this.animationDuration = 0
 		this.size = DrawerSize.Small
 		this.backgroundColor = Color.White
 		return this
@@ -88,13 +73,10 @@ export class MenuProperties {
 	private padding: Length | Padding
 
 
-	constructor(height: Length, iconHeight: Length, iconWidth: Length) {
-		if(height == null || height == undefined) height = '0vp'
-		if(iconHeight == null || iconHeight == undefined) iconHeight = '0vp'
-		if(iconWidth == null || iconWidth == undefined) iconWidth = '0vp'
-		this.height = height
-		this.iconHeight = iconHeight
-		this.iconWidth = iconWidth
+	constructor() {
+		this.height = '30vp'
+		this.iconHeight = '24vp'
+		this.iconWidth = '24vp'
 		this.fontSize = '20vp'
 		this.fontColor = Color.Black
 		this.subtitleFontSize = '20vp'

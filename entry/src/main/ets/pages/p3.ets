@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { MenuItemType, MenuOption, SideDrawer } from '@ohos/navigationdrawer'
+import { MenuItemType, MenuOption, SideDrawer } from '@ohos/navigation-drawer'
 
 @Entry
 @Component
@@ -39,7 +39,12 @@ struct P1 {
 	build() {
 		Stack() {
 			Column() {
-				Text('Page 1').fontSize('20vp')
+				Text('Page 3').fontSize('20vp').onClick(() => {
+					animateTo({ duration: 1000 }, () => {
+						this.vis = !this.vis
+						console.log(this.vis + '')
+					})
+				})
 
 				Button('Open Drawer').onClick(() => {
 					animateTo({ duration: 1000 }, () => {
@@ -53,6 +58,7 @@ struct P1 {
 				SideDrawer({
 					menu: this.menu,
 					visible: $vis,
+					//header: null,
 					model: this.model,
 					menuModel: this.menuModel
 				})

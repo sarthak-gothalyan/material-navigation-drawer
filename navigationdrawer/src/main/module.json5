@@ -1,0 +1,11 @@
+{
+	"module": {
+		"name": "navigationdrawer",
+		"type": "har",
+		"deviceTypes": [
+			"phone",
+			"tablet"
+		],
+		"uiSyntax": "ets"
+	}
+}

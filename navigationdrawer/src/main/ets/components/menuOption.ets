@@ -14,36 +14,37 @@
  */
 
 export enum MenuItemType {
-	Divider,
-	Subtitle,
-	Page
+	Option,
+	ExtraOption,
+	Group
 }
 
-
 export class MenuOption {
-	private itemType: MenuItemType
+	protected itemType: MenuItemType
+	private id: string | number
 	private value: string
 	private path: string
 	private icon?: string | Resource
 
-	constructor(itemType: MenuItemType, value?: string, path?: string, icon?: string | Resource) {
-		if(itemType == null || itemType == undefined) itemType = MenuItemType.Divider
+	constructor(id: string | number, value: string, path?: string, icon?: string | Resource) {
+		if(id == null || id == undefined) id = ''
 		if(value == null || value == undefined) value = ''
 		if(path == null || path == undefined) path = ''
 		if(icon == null || icon == undefined) icon = ''
-		this.itemType = itemType
+		this.id = id
 		this.value = value
 		this.path = path
 		this.icon = icon
+		this.itemType = MenuItemType.Option
 	}
 
-	setItemType(itemType: MenuItemType): MenuOption {
-		if(itemType == null || itemType == undefined) itemType = MenuItemType.Divider
+	setID(id: string | number): MenuOption {
+		if(id != null && id != undefined) this.id = id
 		return this
 	}
 
-	getItemType(): MenuItemType {
-		return this.itemType
+	getID(): string | number {
+		return this.id
 	}
 
 	setValue(value: string): MenuOption {
@@ -74,5 +75,32 @@ export class MenuOption {
 
 	getIcon(): string | Resource {
 		return this.icon
+	}
+
+	getItemType(): MenuItemType {
+		return this.itemType
+	}
+}
+
+export class Group {
+	private menu: MenuOption[]
+
+	constructor(id: string | number, value: string, menu?: MenuOption[]) {
+		if(menu == null || menu == undefined) menu = []
+		this.menu = menu
+	}
+
+	setMenu(menu: MenuOption[]): Group {
+		if(menu != null && menu != undefined) this.menu = menu
+		return this
+	}
+
+	addToMenu(option: MenuOption): Group {
+		if(option != null && option != undefined) this.menu.push(option)
+		return this
+	}
+
+	getMenu(): MenuOption[] {
+		return this.menu
 	}
 }

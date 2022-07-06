@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { MenuItemType, MenuOption, SideDrawer } from '@ohos/navigationdrawer'
+import { MenuItemType, MenuOption, SideDrawer } from '@ohos/navigation-drawer'
 
 @Entry
 @Component

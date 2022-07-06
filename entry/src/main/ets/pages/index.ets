@@ -13,38 +13,43 @@
  * limitations under the License.
  */
 
-import { DrawerSize, MenuItemType, MenuOption, SideDrawer } from '@ohos/navigationdrawer'
+import { DrawerSize, MenuOption, SideDrawer, Group, ExtraOption } from '@ohos/navigation-drawer'
 
 @Entry
 @Component
 struct Index {
 	@State vis: boolean = false
-	menu: MenuOption[] = [
-		new MenuOption(MenuItemType.Subtitle, 'Mail'),
-		new MenuOption(MenuItemType.Page, "Inbox", 'pages/index', $r('app.media.inbox')),
-		new MenuOption(MenuItemType.Page, "Outbox", 'pages/p1', $r('app.media.send')),
-		new MenuOption(MenuItemType.Page, "Favourites", 'pages/p2', $r('app.media.favorite')),
-		new MenuOption(MenuItemType.Page, "Delete", 'pages/p3', $r('app.media.delete')),
-		new MenuOption(MenuItemType.Divider),
-		new MenuOption(MenuItemType.Page, "Settings", 'pages/p1', $r('app.media.settings')),
-		new MenuOption(MenuItemType.Page, "Help & Feedback", 'pages/p2', $r('app.media.help')),
+	menu: (Group | MenuOption | ExtraOption)[] = [
+		new MenuOption('1', "Send", 'pages/index', $r('app.media.send')),
+		new MenuOption('2', "Delete", 'pages/index', $r('app.media.delete')),
+		new Group('3', "Mail", [
+			new MenuOption('4', "Inbox", 'pages/index', $r('app.media.inbox')),
+			new MenuOption('5', "Favourite", 'pages/index', $r('app.media.favorite'))
+		]),
+		new ExtraOption('6', "Settings", 'pages/index', $r('app.media.settings')),
+		new ExtraOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
 	]
 	backgroundColor: string | Color = Color.White
-	model: SideDrawer.Model = new SideDrawer.Model(100, DrawerSize.Small)
-	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('180vp', '24vp', '24vp')
+	model: SideDrawer.Model = new SideDrawer.Model()
+	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
 
 	aboutToAppear() {
-		this.model.setSize(DrawerSize.Medium)
+		this.model.setSize(DrawerSize.Small)
 
-		this.menuModel.setActiveBackgroundColor('#A020F0')
-		this.menuModel.setActiveTextColor(Color.Black)
+		this.menuModel.setHeight('180vp')
+		this.menuModel.setIconWidth('24vp')
+		this.menuModel.setIconHeight('24vp')
+
+		this.menuModel.setActiveBackgroundColor(Color.White)
+		this.menuModel.setActiveTextColor('#A020F0')
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setSubtitleFontSize('21vp')
 		this.menuModel.setFontSize('18vp')
 		this.menuModel.setHeight('56vp')
-		this.menuModel.setPadding('16vp')
+		this.menuModel.setPadding('5vp')
 		this.menuModel.setBorderRadius('20vp')
+		this.menuModel.setHeight('60vp')
 	}
 
 	@Builder
@@ -61,21 +66,23 @@ struct Index {
 		Stack() {
 			Column() {
 				Button('Open side Drawer').onClick(() => {
-					animateTo({ duration: 1000 }, () => {
+					animateTo({ duration: 500 }, () => {
 						this.vis = !this.vis
 						console.log(this.vis + '')
 					})
 				})
 			}
 
-			if (this.vis) {
-				SideDrawer({
-					menu: this.menu,
-					visible: $vis,
-					model: this.model,
-					menuModel: this.menuModel
-				})
-			}
+			SideDrawer({
+				menu: this.menu,
+				selected: '2',
+				onSelect: () => {
+					console.log("done")
+				},
+				visible: $vis,
+				model: this.model,
+				menuModel: this.menuModel
+			})
 		}
 		.width('100%')
 		.height('100%')

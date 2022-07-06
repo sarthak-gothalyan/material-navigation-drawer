@@ -14,126 +14,184 @@
  */
 
 import router from '@system.router'
-import { MenuItemType, MenuOption } from './menuOption'
+import { MenuItem, MenuItemType, MenuOption, Group, ExtraOption } from './newOption'
+//import { MenuItemType, MenuOption } from './menuOption'
 import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
 @Component
 struct SideDrawer {
-	menu: MenuOption[]
-	//@BuilderParam header: () => any
+	menu: (Group | MenuOption | ExtraOption)[]
+	onSelect: (it: MenuOption) => void
 	@Link visible: boolean
-	@State selected: number = -1
-	@State model: SideDrawer.Model = new SideDrawer.Model(0, DrawerSize.Small)
+	@State selected: string | number = undefined
+	@State model: SideDrawer.Model = new SideDrawer.Model()
 	@State headerModel: SideDrawer.HeaderModel = undefined
-	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
+	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
 
 	aboutToAppear() {
 		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
-		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model(0, DrawerSize.Small)
-		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel('0vp', '0vp', '0vp')
+		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model()
+		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel()
+		this.menu.sort((it1: Group | MenuOption | ExtraOption, it2: Group | MenuOption | ExtraOption) => { return it1.getItemType() - it2.getItemType() })
+	}
+
+	@Builder
+	SmallItem(page: MenuOption) {
+		Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Center, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+			Image(page.getIcon())
+				.objectFit(ImageFit.Contain)
+				.width(this.menuModel.getIconWidth())
+				.height(this.menuModel.getIconHeight())
+				.margin({ bottom: 20 })
+			if(this.selected == page.getID()) {
+				Text(page.getValue())
+					.fontSize(this.menuModel.getFontSize())
+					.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
+					.flexGrow(1)
+					.maxLines(1)
+			}
+		}
+		.height(this.menuModel.getHeight())
+		.width('100%')
+		.backgroundColor(this.selected == page.getID() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
+		.borderRadius(this.menuModel.getBorderRadius())
+		.padding(this.menuModel.getPadding())
+		.onClick(() => {
+			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
+			this.selected = page.getID()
+			this.visible = false
+			console.log("small item")
+		})
 	}
 
 	@Builder
 	Item(page: MenuOption) {
-		Navigator({target: page.getPath(), type: NavigationType.Push}) {
-			Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center }) {
-				Image(page.getIcon())
-					.objectFit(ImageFit.Contain)
-					.width(this.menuModel.getIconWidth())
-					.height(this.menuModel.getIconHeight())
-					.margin({ right: 20 })
-				Text(page.getValue())
-					.fontSize(this.menuModel.getFontSize())
-					.fontColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
-					.flexGrow(1)
-					.maxLines(1)
-			}
-			.backgroundColor(router.getState().path + router.getState().name == page.getPath() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
-			.borderRadius(this.menuModel.getBorderRadius())
-			.padding(this.menuModel.getPadding())
+		Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+			Image(page.getIcon())
+				.objectFit(ImageFit.Contain)
+				.width(this.menuModel.getIconWidth())
+				.height(this.menuModel.getIconHeight())
+				.margin({ right: 20 })
+			Text(page.getValue())
+				.fontSize(this.menuModel.getFontSize())
+				.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
+				.flexGrow(1)
+				.maxLines(1)
 		}
-		.params({ text: page.getValue() })
+		.height(this.menuModel.getHeight())
+		.width('100%')
+		.backgroundColor(this.selected == page.getID() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
+		.borderRadius(this.menuModel.getBorderRadius())
+		.padding(this.menuModel.getPadding())
+		.onClick(() => {
+			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
+			this.selected = page.getID()
+			this.visible = false
+			console.log("item")
+		})
 	}
 
 	build() {
-		Stack() {
-			Column()
-				.width('100%')
-				.height('100%')
-				.onClick(() => {
-					animateTo({ duration: this.model.getAnimationDuration() }, () => {
+		if (this.visible) {
+			Stack() {
+				Column()
+					.width('100%')
+					.height('100%')
+					.onClick(() => {
 						this.visible = false
+						console.log("blank area")
 					})
-				})
-				.backgroundColor("#80dbdbdb")
+					.backgroundColor("#80dbdbdb")
 
-			Column() {
-				List({space: '10vp'}) {
-//					if(this.header != null && this.header != undefined) {
-//						ListItem() {
-//							this.header()
-//						}
-//						.height('100vp')
-//					}
-
-					if(this.headerModel != null && this.headerModel != undefined) {
-						ListItem() {
-							Column() {
-								Image(this.headerModel.getIcon()).width(this.headerModel.getIconHeight()).height(this.headerModel.getIconHeight())
-								Text(this.headerModel.getName()).fontSize(this.headerModel.getFontSize())
-								Text(this.headerModel.getMail()).fontSize(this.headerModel.getFontSize()).opacity(0.5)
+				Column() {
+					List({space: '10vp'}) {
+						if(this.headerModel != null && this.headerModel != undefined) {
+							ListItem() {
+								Column() {
+									Image(this.headerModel.getIcon()).width(this.headerModel.getIconHeight()).height(this.headerModel.getIconHeight())
+									Text(this.headerModel.getName()).fontSize(this.headerModel.getFontSize())
+									Text(this.headerModel.getMail()).fontSize(this.headerModel.getFontSize()).opacity(0.5)
+								}
+								.width('100%')
+								.backgroundColor(this.headerModel.getBackgroundColor())
+								.borderRadius(this.headerModel.getBorderRadius())
 							}
-							.width('100%')
-							.backgroundColor(this.headerModel.getBackgroundColor())
-							.borderRadius(this.headerModel.getBorderRadius())
+							.height(this.headerModel.getHeight())
+							.onClick(() => {
+								this.headerModel.getCallBack()()
+							})
 						}
-						.height(this.headerModel.getHeight())
-						.onClick(() => {
-							this.headerModel.getCallBack()()
-						})
+
+						ForEach(this.menu, (it: MenuItem) => {
+							if(it.getItemType() == MenuItemType.Group) {
+								ListItem() {
+									Divider().width('100%').height('2vp')
+								}
+								ListItem() {
+									Text(it.getValue())
+										.fontSize(this.menuModel.getSubtitleFontSize())
+										.fontColor(this.menuModel.getSubtitleFontColor())
+										.flexGrow(1)
+										.maxLines(1)
+								}
+								ForEach(it.getMenu(), (it: MenuOption) => {
+									ListItem() {
+										if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
+										else this.Item(it)
+									}
+								})
+								ListItem() {
+									Divider().width('100%').height('2vp')
+								}
+							}
+							else if(it.getItemType() == MenuItemType.Option) {
+								ListItem() {
+									if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
+									else this.Item(it)
+								}
+							}
+						}, it => it.getID())
+
+						if(this.menu[this.menu.length - 1].getItemType() == MenuItemType.ExtraOption) {
+							ListItem() {
+								Divider().width('100%').height('2vp')
+							}
+						}
+						ForEach(this.menu, (it: MenuItem) => {
+							if(it.getItemType() == MenuItemType.ExtraOption) {
+								ListItem() {
+									if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
+									else this.Item(it)
+								}
+							}
+						}, it => it.getID())
 					}
-
-					ForEach(this.menu, (it: MenuOption) => {
-						ListItem() {
-							if(it.getItemType() == MenuItemType.Divider) Divider().width('100%').height('2vp')
-							else if(it.getItemType() == MenuItemType.Subtitle) Text(it.getValue()).fontSize(this.menuModel.getSubtitleFontSize()).fontColor(this.menuModel.getSubtitleFontColor()).padding(this.menuModel.getPadding())
-							else this.Item(it)
-						}
-					}, (it, index) => index.toString())
 				}
+				.width(this.model.getSize())
+				.height('100%')
+				.position({ x: 0, y: 0 })
+				.transition({ type: TransitionType.Insert, scale: { x: 0.0, centerX: 0.0 } })
+				.transition({ type: TransitionType.Delete, scale: { x: 0.0, centerX: 0.0 } })
+				.backgroundColor(this.model.getBackgroundColor())
+				.padding('7vp')
 			}
-			.width(this.model.getSize())
+			.width('100%')
 			.height('100%')
-			.justifyContent(FlexAlign.Start)
-			.position({ x: 0, y: 0 })
-			.transition({ type: TransitionType.Insert, scale: { x: 0.0, centerX: 0.0 } })
-			.transition({ type: TransitionType.Delete, scale: { x: 0.0, centerX: 0.0 } })
-			.backgroundColor(this.model.getBackgroundColor())
-			.padding('7vp')
 		}
-		.width('100%')
-		.height('100%')
-	}
-
-	pageTransition() {
-		PageTransitionExit({ duration: 1, curve: Curve.Linear })
-		.onExit(() => {
-			this.visible = false
-		})
 	}
 }
 
 namespace SideDrawer {
 	export class Model extends Properties{
-		constructor(animationDuration: number, size: DrawerSize) {
-			super(animationDuration, size)
+		constructor() {
+			super()
 		}
 	}
 
 	export class MenuModel extends MenuProperties {
-		constructor(height: Length, iconHeight: Length, iconWidth: Length) {
-			super(height, iconHeight, iconWidth)
+		constructor() {
+			super()
 		}
 	}
 
