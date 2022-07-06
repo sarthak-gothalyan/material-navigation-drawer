@@ -22,6 +22,7 @@ import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './prop
 struct SideDrawer {
 	menu: (Group | MenuOption | ExtraOption)[]
 	onSelect: (it: MenuOption) => void
+	@BuilderParam header: () => any
 	@Link visible: boolean
 	@State selected: string | number = undefined
 	@State model: SideDrawer.Model = new SideDrawer.Model()
@@ -123,6 +124,12 @@ struct SideDrawer {
 							})
 						}
 
+						if(this.header != null && this.header != undefined) {
+							ListItem() {
+								this.header()
+							}
+						}
+
 						ForEach(this.menu, (it: MenuItem) => {
 							if(it.getItemType() == MenuItemType.Group) {
 								ListItem() {
@@ -159,13 +166,13 @@ struct SideDrawer {
 							}
 						}
 						ForEach(this.menu, (it: MenuItem) => {
-							if(it.getItemType() == MenuItemType.ExtraOption) {
-								ListItem() {
-									if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
-									else this.Item(it)
+								if(it.getItemType() == MenuItemType.ExtraOption) {
+									ListItem() {
+										if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
+										else this.Item(it)
+									}
 								}
-							}
-						}, it => it.getID())
+							}, it => it.getID())
 					}
 				}
 				.width(this.model.getSize())

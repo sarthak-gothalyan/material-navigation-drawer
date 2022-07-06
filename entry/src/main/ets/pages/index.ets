@@ -76,6 +76,7 @@ struct Index {
 			SideDrawer({
 				menu: this.menu,
 				selected: '2',
+				header: this.customDesign(),
 				onSelect: () => {
 					console.log("done")
 				},
