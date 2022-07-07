@@ -14,15 +14,13 @@
  */
 
 import router from '@system.router'
-import { MenuItem, MenuItemType, MenuOption, Group, ExtraOption } from './newOption'
-//import { MenuItemType, MenuOption } from './menuOption'
+import { MenuItem, MenuItemType, MenuOption, Group, ExtraOption } from './menuOption'
 import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
 @Component
 struct SideDrawer {
 	menu: (Group | MenuOption | ExtraOption)[]
 	onSelect: (it: MenuOption) => void
-	@BuilderParam header: () => any
 	@Link visible: boolean
 	@State selected: string | number = undefined
 	@State model: SideDrawer.Model = new SideDrawer.Model()
@@ -124,16 +122,10 @@ struct SideDrawer {
 							})
 						}
 
-						if(this.header != null && this.header != undefined) {
-							ListItem() {
-								this.header()
-							}
-						}
-
 						ForEach(this.menu, (it: MenuItem) => {
 							if(it.getItemType() == MenuItemType.Group) {
 								ListItem() {
-									Divider().width('100%').height('2vp')
+									Divider().width('100%').height('2vp').color(Color.Black).strokeWidth('1vp')
 								}
 								ListItem() {
 									Text(it.getValue())
@@ -148,9 +140,6 @@ struct SideDrawer {
 										else this.Item(it)
 									}
 								})
-								ListItem() {
-									Divider().width('100%').height('2vp')
-								}
 							}
 							else if(it.getItemType() == MenuItemType.Option) {
 								ListItem() {
@@ -162,7 +151,7 @@ struct SideDrawer {
 
 						if(this.menu[this.menu.length - 1].getItemType() == MenuItemType.ExtraOption) {
 							ListItem() {
-								Divider().width('100%').height('2vp')
+								Divider().width('100%').height('2vp').color(Color.Black).strokeWidth('1vp')
 							}
 						}
 						ForEach(this.menu, (it: MenuItem) => {

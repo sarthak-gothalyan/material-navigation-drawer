@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-//export { MenuOption } from './src/main/ets/components/menuOption'
-export { MenuOption, ExtraOption, Group, MenuItem } from './src/main/ets/components/newOption'
+export { MenuOption, ExtraOption, Group, MenuItem } from './src/main/ets/components/menuOption'
 export { DrawerSize } from './src/main/ets/components/properties'
 export { SideDrawer } from './src/main/ets/components/sideDrawer'

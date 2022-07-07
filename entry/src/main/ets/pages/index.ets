@@ -52,16 +52,6 @@ struct Index {
 		this.menuModel.setHeight('60vp')
 	}
 
-	@Builder
-	customDesign(): any {
-		Column() {
-			Image($r('app.media.icon')).width('24vp').height('24vp')
-			Text('name').fontSize('20vp')
-			Text('details').fontSize('20vp').opacity(0.5)
-		}
-		.width('100%')
-	}
-
 	build() {
 		Stack() {
 			Column() {
@@ -76,7 +66,6 @@ struct Index {
 			SideDrawer({
 				menu: this.menu,
 				selected: '2',
-				header: this.customDesign(),
 				onSelect: () => {
 					console.log("done")
 				},

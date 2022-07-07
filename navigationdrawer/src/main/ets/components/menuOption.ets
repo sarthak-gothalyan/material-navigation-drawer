@@ -1,44 +1,22 @@
-/*
- * Copyright (c) 2022 Application Library Engineering Group.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 export enum MenuItemType {
-	Option,
-	ExtraOption,
-	Group
+	Group = 2,
+	Option = 1,
+	ExtraOption = 3
 }
 
-export class MenuOption {
-	protected itemType: MenuItemType
+class Base {
 	private id: string | number
 	private value: string
-	private path: string
-	private icon?: string | Resource
+	protected itemType: MenuItemType
 
-	constructor(id: string | number, value: string, path?: string, icon?: string | Resource) {
+	constructor(id: string | number, value: string) {
 		if(id == null || id == undefined) id = ''
 		if(value == null || value == undefined) value = ''
-		if(path == null || path == undefined) path = ''
-		if(icon == null || icon == undefined) icon = ''
-		this.id = id
 		this.value = value
-		this.path = path
-		this.icon = icon
-		this.itemType = MenuItemType.Option
+		this.id = id
 	}
 
-	setID(id: string | number): MenuOption {
+	setID(id: string | number): Base {
 		if(id != null && id != undefined) this.id = id
 		return this
 	}
@@ -47,7 +25,7 @@ export class MenuOption {
 		return this.id
 	}
 
-	setValue(value: string): MenuOption {
+	setValue(value: string): Base {
 		if(value == null || value == undefined) value = ''
 		this.value = value
 		return this
@@ -55,6 +33,26 @@ export class MenuOption {
 
 	getValue(): string {
 		return this.value
+	}
+
+	getItemType(): MenuItemType {
+		return this.itemType
+	}
+}
+
+export class MenuOption extends Base {
+	private path: string
+	private icon?: string | Resource
+
+	constructor(id: string | number, value: string, path?: string, icon?: string | Resource) {
+		if(id == null || id == undefined) id = ''
+		if(value == null || value == undefined) value = ''
+		if(path == null || path == undefined) path = ''
+		if(icon == null || icon == undefined) icon = ''
+		super(id, value)
+		this.itemType = MenuItemType.Option
+		this.path = path
+		this.icon = icon
 	}
 
 	setPath(path: string): MenuOption {
@@ -76,16 +74,25 @@ export class MenuOption {
 	getIcon(): string | Resource {
 		return this.icon
 	}
+}
 
-	getItemType(): MenuItemType {
-		return this.itemType
+export class ExtraOption extends MenuOption {
+	constructor(id: string | number, value: string, path?: string, icon?: string | Resource) {
+		if(id == null || id == undefined) id = ''
+		if(value == null || value == undefined) value = ''
+		if(path == null || path == undefined) path = ''
+		if(icon == null || icon == undefined) icon = ''
+		super(id, value, path, icon)
+		this.itemType = MenuItemType.ExtraOption
 	}
 }
 
-export class Group {
+export class Group extends ExtraOption {
 	private menu: MenuOption[]
 
 	constructor(id: string | number, value: string, menu?: MenuOption[]) {
+		super(id, value)
+		this.itemType = MenuItemType.Group
 		if(menu == null || menu == undefined) menu = []
 		this.menu = menu
 	}
@@ -104,3 +111,5 @@ export class Group {
 		return this.menu
 	}
 }
+
+export class MenuItem extends Group {}
