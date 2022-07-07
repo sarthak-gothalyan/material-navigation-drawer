@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import router from '@system.router'
 import { MenuOption } from './menuOption'
 import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
@@ -29,7 +28,6 @@ struct SideDrawer {
 	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
 
 	aboutToAppear() {
-		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
 		if(this.extraMenu == null || this.extraMenu == undefined) this.extraMenu = []
 		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model()
@@ -61,7 +59,6 @@ struct SideDrawer {
 			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
 			this.selected = page.getID()
 			this.visible = false
-			console.log("small item")
 		})
 	}
 
@@ -88,7 +85,6 @@ struct SideDrawer {
 			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
 			this.selected = page.getID()
 			this.visible = false
-			console.log("item")
 		})
 	}
 
@@ -116,7 +112,6 @@ struct SideDrawer {
 		.onClick(() => {
 			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
 			this.visible = false
-			console.log("small item")
 		})
 	}
 
@@ -153,7 +148,6 @@ struct SideDrawer {
 					.height('100%')
 					.onClick(() => {
 						this.visible = false
-						console.log("blank area")
 					})
 					.backgroundColor("#80dbdbdb")
 

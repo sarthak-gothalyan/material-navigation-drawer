@@ -56,7 +56,6 @@ struct Index {
 				Button('Open side Drawer').onClick(() => {
 					animateTo({ duration: 500 }, () => {
 						this.vis = !this.vis
-						console.log(this.vis + '')
 					})
 				})
 			}
@@ -65,8 +64,8 @@ struct Index {
 				menu: this.menu,
 				extraMenu: this.extraOptions,
 				selected: '2',
-				onSelect: () => {
-					console.log("done")
+				onSelect: (it: MenuOption) => {
+					console.log(it.getID() + '')
 				},
 				visible: $vis,
 				model: this.model,
