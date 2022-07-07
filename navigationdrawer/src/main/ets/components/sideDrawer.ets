@@ -14,12 +14,13 @@
  */
 
 import router from '@system.router'
-import { MenuItem, MenuItemType, MenuOption, Group, ExtraOption } from './menuOption'
+import { MenuOption } from './menuOption'
 import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
 @Component
 struct SideDrawer {
-	menu: (Group | MenuOption | ExtraOption)[]
+	menu: MenuOption[]
+	extraMenu: MenuOption[]
 	onSelect: (it: MenuOption) => void
 	@Link visible: boolean
 	@State selected: string | number = undefined
@@ -30,9 +31,9 @@ struct SideDrawer {
 	aboutToAppear() {
 		console.log(router.getState().path + router.getState().name)
 		if(this.menu == null || this.menu == undefined) this.menu = []
+		if(this.extraMenu == null || this.extraMenu == undefined) this.extraMenu = []
 		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model()
 		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel()
-		this.menu.sort((it1: Group | MenuOption | ExtraOption, it2: Group | MenuOption | ExtraOption) => { return it1.getItemType() - it2.getItemType() })
 	}
 
 	@Builder
@@ -91,6 +92,59 @@ struct SideDrawer {
 		})
 	}
 
+	@Builder
+	SmallItemExtra(page: MenuOption) {
+		Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Center, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+			Image(page.getIcon())
+				.objectFit(ImageFit.Contain)
+				.width(this.menuModel.getIconWidth())
+				.height(this.menuModel.getIconHeight())
+				.margin({ bottom: 20 })
+			if(this.selected == page.getID()) {
+				Text(page.getValue())
+					.fontSize(this.menuModel.getFontSize())
+					.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
+					.flexGrow(1)
+					.maxLines(1)
+			}
+		}
+		.height(this.menuModel.getHeight())
+		.width('100%')
+		.backgroundColor(this.menuModel.getBackgroundColor())
+		.borderRadius(this.menuModel.getBorderRadius())
+		.padding(this.menuModel.getPadding())
+		.onClick(() => {
+			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
+			this.visible = false
+			console.log("small item")
+		})
+	}
+
+	@Builder
+	ItemExtra(page: MenuOption) {
+		Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+			Image(page.getIcon())
+				.objectFit(ImageFit.Contain)
+				.width(this.menuModel.getIconWidth())
+				.height(this.menuModel.getIconHeight())
+				.margin({ right: 20 })
+			Text(page.getValue())
+				.fontSize(this.menuModel.getFontSize())
+				.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
+				.flexGrow(1)
+				.maxLines(1)
+		}
+		.height(this.menuModel.getHeight())
+		.width('100%')
+		.backgroundColor(this.menuModel.getBackgroundColor())
+		.borderRadius(this.menuModel.getBorderRadius())
+		.padding(this.menuModel.getPadding())
+		.onClick(() => {
+			if(this.onSelect != null && this.onSelect != undefined) this.onSelect(page)
+			this.visible = false
+		})
+	}
+
 	build() {
 		if (this.visible) {
 			Stack() {
@@ -122,46 +176,24 @@ struct SideDrawer {
 							})
 						}
 
-						ForEach(this.menu, (it: MenuItem) => {
-							if(it.getItemType() == MenuItemType.Group) {
-								ListItem() {
-									Divider().width('100%').height('2vp').color(Color.Black).strokeWidth('1vp')
-								}
-								ListItem() {
-									Text(it.getValue())
-										.fontSize(this.menuModel.getSubtitleFontSize())
-										.fontColor(this.menuModel.getSubtitleFontColor())
-										.flexGrow(1)
-										.maxLines(1)
-								}
-								ForEach(it.getMenu(), (it: MenuOption) => {
-									ListItem() {
-										if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
-										else this.Item(it)
-									}
-								})
-							}
-							else if(it.getItemType() == MenuItemType.Option) {
-								ListItem() {
-									if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
-									else this.Item(it)
-								}
+						ForEach(this.menu, (it: MenuOption) => {
+							ListItem() {
+								if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
+								else this.Item(it)
 							}
 						}, it => it.getID())
 
-						if(this.menu[this.menu.length - 1].getItemType() == MenuItemType.ExtraOption) {
+						if(this.extraMenu.length > 0) {
 							ListItem() {
 								Divider().width('100%').height('2vp').color(Color.Black).strokeWidth('1vp')
 							}
 						}
-						ForEach(this.menu, (it: MenuItem) => {
-								if(it.getItemType() == MenuItemType.ExtraOption) {
-									ListItem() {
-										if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)
-										else this.Item(it)
-									}
-								}
-							}, it => it.getID())
+						ForEach(this.extraMenu, (it: MenuOption) => {
+							ListItem() {
+								if (this.model.getSize() == DrawerSize.Small) this.SmallItemExtra(it)
+								else this.ItemExtra(it)
+							}
+						}, it => it.getID())
 					}
 				}
 				.width(this.model.getSize())

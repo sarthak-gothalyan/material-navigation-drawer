@@ -13,21 +13,20 @@
  * limitations under the License.
  */
 
-import { DrawerSize, MenuOption, SideDrawer, Group, ExtraOption } from '@ohos/navigation-drawer'
+import { DrawerSize, MenuOption, SideDrawer } from '@ohos/navigation-drawer'
 
 @Entry
 @Component
 struct Index {
 	@State vis: boolean = false
-	menu: (Group | MenuOption | ExtraOption)[] = [
+	menu: MenuOption[] = [
 		new MenuOption('1', "Send", 'pages/index', $r('app.media.send')),
 		new MenuOption('2', "Delete", 'pages/index', $r('app.media.delete')),
-		new Group('3', "Mail", [
-			new MenuOption('4', "Inbox", 'pages/index', $r('app.media.inbox')),
-			new MenuOption('5', "Favourite", 'pages/index', $r('app.media.favorite'))
-		]),
-		new ExtraOption('6', "Settings", 'pages/index', $r('app.media.settings')),
-		new ExtraOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
+
+	]
+	extraOptions: MenuOption[] = [
+		new MenuOption('6', "Settings", 'pages/index', $r('app.media.settings')),
+		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model()
@@ -44,7 +43,6 @@ struct Index {
 		this.menuModel.setActiveTextColor('#A020F0')
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
-		this.menuModel.setSubtitleFontSize('21vp')
 		this.menuModel.setFontSize('18vp')
 		this.menuModel.setHeight('56vp')
 		this.menuModel.setPadding('5vp')
@@ -65,6 +63,7 @@ struct Index {
 
 			SideDrawer({
 				menu: this.menu,
+				extraMenu: this.extraOptions,
 				selected: '2',
 				onSelect: () => {
 					console.log("done")

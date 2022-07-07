@@ -64,8 +64,6 @@ export class MenuProperties {
 	private iconWidth: Length
 	private fontSize: Length
 	private fontColor: string | Color
-	private subtitleFontSize: Length
-	private subtitleFontColor: string | Color
 	private backgroundColor: string | Color
 	private activeBackgroundColor: string | Color
 	private activeTextColor: string | Color
@@ -79,8 +77,6 @@ export class MenuProperties {
 		this.iconWidth = '24vp'
 		this.fontSize = '20vp'
 		this.fontColor = Color.Black
-		this.subtitleFontSize = '20vp'
-		this.subtitleFontColor = Color.Black
 		this.backgroundColor = Color.White
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
@@ -138,26 +134,6 @@ export class MenuProperties {
 		return this.fontColor
 	}
 
-	setSubtitleFontSize(subtitleFontSize: Length): MenuProperties {
-		if(subtitleFontSize == null || subtitleFontSize == undefined) subtitleFontSize = '0vp'
-		this.subtitleFontSize = subtitleFontSize
-		return this
-	}
-
-	getSubtitleFontSize(): Length {
-		return this.subtitleFontSize
-	}
-
-	setSubtitleFontColor(subtitleFontColor: string | Color): MenuProperties {
-		if(subtitleFontColor == null || subtitleFontColor == undefined) subtitleFontColor = Color.Black
-		this.subtitleFontColor = subtitleFontColor
-		return this
-	}
-
-	getSubtitleFontColor(): string | Color {
-		return this.subtitleFontColor
-	}
-
 	setBackgroundColor(backgroundColor: string | Color): MenuProperties {
 		if(backgroundColor == null || backgroundColor == undefined) backgroundColor = Color.White
 		this.backgroundColor = backgroundColor
@@ -213,8 +189,6 @@ export class MenuProperties {
 		this.iconWidth = '0vp'
 		this.fontSize = '0vp'
 		this.fontColor = Color.Black
-		this.subtitleFontSize = '0vp'
-		this.subtitleFontColor = Color.Black
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
 		this.padding = {}
