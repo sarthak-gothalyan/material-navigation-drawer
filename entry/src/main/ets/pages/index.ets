@@ -35,7 +35,6 @@ struct Index {
 	aboutToAppear() {
 		this.model.setSize(DrawerSize.Small)
 
-		this.menuModel.setHeight('180vp')
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setIconHeight('24vp')
 
@@ -43,11 +42,8 @@ struct Index {
 		this.menuModel.setActiveTextColor('#A020F0')
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
-		this.menuModel.setFontSize('18vp')
-		this.menuModel.setHeight('56vp')
 		this.menuModel.setPadding('5vp')
 		this.menuModel.setBorderRadius('20vp')
-		this.menuModel.setHeight('60vp')
 	}
 
 	build() {

@@ -41,6 +41,10 @@ export class Properties {
 		return DrawerSize.Big
 	}
 
+	getSizeEnum(): DrawerSize {
+		return this.size
+	}
+
 	setBackgroundColor(backgroundColor: string | Color): Properties {
 		if(backgroundColor == null || backgroundColor == undefined) backgroundColor = ''
 		this.backgroundColor = backgroundColor
@@ -59,10 +63,8 @@ export class Properties {
 }
 
 export class MenuProperties {
-	private height: Length
 	private iconHeight: Length
 	private iconWidth: Length
-	private fontSize: Length
 	private fontColor: string | Color
 	private backgroundColor: string | Color
 	private activeBackgroundColor: string | Color
@@ -72,26 +74,14 @@ export class MenuProperties {
 
 
 	constructor() {
-		this.height = '30vp'
 		this.iconHeight = '24vp'
 		this.iconWidth = '24vp'
-		this.fontSize = '20vp'
 		this.fontColor = Color.Black
 		this.backgroundColor = Color.White
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
 		this.borderRadius = '0vp'
 		this.padding = '0vp'
-	}
-
-	setHeight(height: Length): MenuProperties {
-		if(height == null || height == undefined) height = '0vp'
-		this.height = height
-		return this
-	}
-
-	getHeight(): Length {
-		return this.height
 	}
 
 	setIconHeight(iconHeight: Length): MenuProperties {
@@ -114,14 +104,10 @@ export class MenuProperties {
 		return this.iconWidth
 	}
 
-	setFontSize(fontSize: Length): MenuProperties {
-		if(fontSize == null || fontSize == undefined) fontSize = '0vp'
-		this.fontSize = fontSize
-		return this
-	}
-
-	getFontSize(): Length {
-		return this.fontSize
+	getFontSize(size: DrawerSize): Length {
+		if(size == DrawerSize.Small) return "16vp"
+		else if(size == DrawerSize.Medium) return "18vp"
+		return "20vp"
 	}
 
 	setFontColor(fontColor: string | Color): MenuProperties {
@@ -187,7 +173,6 @@ export class MenuProperties {
 	reset(): MenuProperties {
 		this.iconHeight = '0vp'
 		this.iconWidth = '0vp'
-		this.fontSize = '0vp'
 		this.fontColor = Color.Black
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
