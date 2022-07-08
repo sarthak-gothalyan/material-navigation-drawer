@@ -165,7 +165,7 @@ struct Drawer {
 
 						if(this.model.getTitle() != "") {
 							ListItem() {
-								Text(this.model.getTitle()).fontWeight(FontWeight.Bold).fontSize(this.model.getTitleFontSize()).fontColor(this.model.getTitleFontColor())
+								Text(this.model.getTitle()).fontWeight(FontWeight.Bold).fontSize(this.model.getTitleFontSize()).fontColor(this.model.getTitleFontColor()).margin(7)
 							}
 						}
 						ForEach(this.menu, (it: MenuOption) => {
