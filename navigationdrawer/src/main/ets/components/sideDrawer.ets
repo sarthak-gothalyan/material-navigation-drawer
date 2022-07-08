@@ -63,17 +63,19 @@ struct SideDrawer {
 
 	@Builder
 	Item(page: MenuOption) {
-		Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+		Row() {
 			Image(page.getIcon())
 				.objectFit(ImageFit.Contain)
 				.width(this.menuModel.getIconWidth())
 				.height(this.menuModel.getIconHeight())
 				.margin({ right: 20 })
-			Text(page.getValue())
-				.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))
-				.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
-				.maxLines(2)
-				.textOverflow({overflow: TextOverflow.Ellipsis})
+			Flex() {
+				Text(page.getValue())
+					.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))
+					.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
+					.maxLines(2)
+					.textOverflow({overflow: TextOverflow.Ellipsis})
+			}.flexGrow(1).flexShrink(1)
 		}
 		.width('100%')
 		.backgroundColor(this.selected == page.getID() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
@@ -106,17 +108,19 @@ struct SideDrawer {
 
 	@Builder
 	ItemExtra(page: MenuOption) {
-		Flex({ justifyContent: FlexAlign.Start, alignContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
+		Row() {
 			Image(page.getIcon())
 				.objectFit(ImageFit.Contain)
 				.width(this.menuModel.getIconWidth())
 				.height(this.menuModel.getIconHeight())
 				.margin({ right: 20 })
-			Text(page.getValue())
-				.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))
-				.fontColor(this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())
-				.maxLines(2)
-				.textOverflow({overflow: TextOverflow.Ellipsis})
+			Flex() {
+				Text(page.getValue())
+					.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))
+					.fontColor(this.menuModel.getFontColor())
+					.maxLines(2)
+					.textOverflow({overflow: TextOverflow.Ellipsis})
+			}.flexGrow(1).flexShrink(1)
 		}
 		.width('100%')
 		.backgroundColor(this.menuModel.getBackgroundColor())

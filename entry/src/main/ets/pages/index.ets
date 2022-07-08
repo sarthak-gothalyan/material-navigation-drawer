@@ -26,14 +26,14 @@ struct Index {
 	]
 	extraOptions: MenuOption[] = [
 		new MenuOption('6', "Settings", 'pages/index', $r('app.media.settings')),
-		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
+		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.settings'))
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model()
 	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
 
 	aboutToAppear() {
-		this.model.setSize(DrawerSize.Small)
+		this.model.setSize(DrawerSize.Medium)
 
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setIconHeight('24vp')
