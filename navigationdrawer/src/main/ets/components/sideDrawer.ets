@@ -21,7 +21,6 @@ struct Drawer {
 	menu: MenuOption[]
 	extraMenu: MenuOption[]
 	onSelect: (it: MenuOption) => void
-	title: string
 	@Link visible: boolean
 	@State selected: string | number = undefined
 	@State model: Drawer.Model = new Drawer.Model()
@@ -142,7 +141,8 @@ struct Drawer {
 					.onClick(() => {
 						this.visible = false
 					})
-					.backgroundColor("#80dbdbdb")
+					.backgroundColor(this.model.getShadowColor())
+					.opacity(this.model.getShadowOpacity())
 
 				Column() {
 					List({space: '10vp'}) {
@@ -163,9 +163,9 @@ struct Drawer {
 							})
 						}
 
-						if(this.title != null && this.title != undefined) {
+						if(this.model.getTitle() != "") {
 							ListItem() {
-								Text(this.title).fontWeight(FontWeight.Bold).fontSize(this.menuModel.getTitleFontSize()).fontColor(this.menuModel.getTitleFontColor())
+								Text(this.model.getTitle()).fontWeight(FontWeight.Bold).fontSize(this.model.getTitleFontSize()).fontColor(this.model.getTitleFontColor())
 							}
 						}
 						ForEach(this.menu, (it: MenuOption) => {

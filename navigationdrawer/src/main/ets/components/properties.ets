@@ -22,10 +22,20 @@ export enum DrawerSize {
 export class Properties {
 	private size: DrawerSize
 	private backgroundColor: string | Color
+	private shadowColor: string | Color
+	private shadowOpacity: number
+	private title: string
+	private titleFontSize: Length
+	private titleFontColor: string | Color
 
 	constructor() {
 		this.size = DrawerSize.Small
 		this.backgroundColor = Color.White
+		this.titleFontSize = "21fp"
+		this.titleFontColor = Color.Black
+		this.title = ""
+		this.shadowColor = "#80dbdbdb"
+		this.shadowOpacity = 0.5
 	}
 
 	setSize(size: DrawerSize): Properties {
@@ -55,9 +65,64 @@ export class Properties {
 		return this.backgroundColor
 	}
 
+	setShadowColor(shadowColor: string | Color): Properties {
+		if(shadowColor == null || shadowColor == undefined) shadowColor = "#80dbdbdb"
+		this.shadowColor = shadowColor
+		return this
+	}
+
+	getShadowColor(): string | Color {
+		return this.shadowColor
+	}
+
+	setShadowOpacity(shadowOpacity: number): Properties {
+		if(shadowOpacity == null || shadowOpacity == undefined) shadowOpacity = 0
+		this.shadowOpacity = shadowOpacity
+		return this
+	}
+
+	getShadowOpacity(): number {
+		return this.shadowOpacity
+	}
+
+	setTitle(title: string): Properties {
+		if(title == null || title == undefined) title = ""
+		this.title = title
+		return this
+	}
+
+	getTitle(): string {
+		return this.title
+	}
+
+	setTitleFontSize(titleFontSize: Length): Properties {
+		if(titleFontSize == null || titleFontSize == undefined) titleFontSize = ""
+		this.titleFontSize = titleFontSize
+		return this
+	}
+
+	getTitleFontSize(): Length {
+		return this.titleFontSize
+	}
+
+	setTitleFontColor(titleFontColor: string | Color): Properties {
+		if(titleFontColor == null || titleFontColor == undefined) titleFontColor = Color.Black
+		this.titleFontColor = titleFontColor
+		return this
+	}
+
+	getTitleFontColor(): string | Color {
+		return this.titleFontColor
+	}
+
 	reset(): Properties {
 		this.size = DrawerSize.Small
 		this.backgroundColor = Color.White
+		this.title = ""
+		this.titleFontSize = "0fp"
+		this.titleFontColor = Color.Black
+		this.shadowColor = "#80dbdbdb"
+		this.shadowOpacity = 0.5
 		return this
 	}
 }
@@ -66,8 +131,6 @@ export class MenuProperties {
 	private iconHeight: Length
 	private iconWidth: Length
 	private fontColor: string | Color
-	private titleFontSize: Length
-	private titleFontColor: string | Color
 	private backgroundColor: string | Color
 	private activeBackgroundColor: string | Color
 	private activeTextColor: string | Color
@@ -79,8 +142,6 @@ export class MenuProperties {
 		this.iconHeight = '24vp'
 		this.iconWidth = '24vp'
 		this.fontColor = Color.Black
-		this.titleFontSize = "21fp"
-		this.titleFontColor = Color.Black
 		this.backgroundColor = Color.White
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
@@ -122,26 +183,6 @@ export class MenuProperties {
 
 	getFontColor(): string | Color {
 		return this.fontColor
-	}
-
-	setTitleFontSize(titleFontSize: Length): MenuProperties {
-		if(titleFontSize == null || titleFontSize == undefined) titleFontSize = ""
-		this.titleFontSize = titleFontSize
-		return this
-	}
-
-	getTitleFontSize(): Length {
-		return this.titleFontSize
-	}
-
-	setTitleFontColor(titleFontColor: string | Color): MenuProperties {
-		if(titleFontColor == null || titleFontColor == undefined) titleFontColor = Color.Black
-		this.titleFontColor = titleFontColor
-		return this
-	}
-
-	getTitleFontColor(): string | Color {
-		return this.titleFontColor
 	}
 
 	setBackgroundColor(backgroundColor: string | Color): MenuProperties {
@@ -198,8 +239,6 @@ export class MenuProperties {
 		this.iconHeight = '0vp'
 		this.iconWidth = '0vp'
 		this.fontColor = Color.Black
-		this.titleFontSize = "0fp"
-		this.titleFontColor = Color.Black
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
 		this.padding = {}

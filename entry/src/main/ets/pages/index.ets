@@ -35,12 +35,14 @@ struct Index {
 
 	aboutToAppear() {
 		this.model.setSize(DrawerSize.Medium)
+		this.model.setTitleFontSize("21fp")
+		this.model.setTitleFontColor("#41454B")
+		this.model.setTitle("Mail")
+		this.model.setShadowColor(Color.Black)
+		this.model.setShadowOpacity(0.2)
 
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setIconHeight('24vp')
-
-		this.menuModel.setTitleFontSize("21fp")
-		this.menuModel.setTitleFontColor("#41454B")
 
 		this.menuModel.setActiveBackgroundColor('#A020F0')
 		this.menuModel.setActiveTextColor(Color.Black)
@@ -61,7 +63,6 @@ struct Index {
 
 			Drawer({
 				menu: this.menu,
-				title: "Mail",
 				extraMenu: this.extraOptions,
 				selected: '1',
 				visible: $vis,
