@@ -21,6 +21,7 @@ struct SideDrawer {
 	menu: MenuOption[]
 	extraMenu: MenuOption[]
 	onSelect: (it: MenuOption) => void
+	title: string
 	@Link visible: boolean
 	@State selected: string | number = undefined
 	@State model: SideDrawer.Model = new SideDrawer.Model()
@@ -162,6 +163,11 @@ struct SideDrawer {
 							})
 						}
 
+						if(this.title != null && this.title != undefined) {
+							ListItem() {
+								Text(this.title).fontWeight(FontWeight.Bold).fontSize(this.menuModel.getTitleFontSize()).fontColor(this.menuModel.getTitleFontColor())
+							}
+						}
 						ForEach(this.menu, (it: MenuOption) => {
 							ListItem() {
 								if (this.model.getSize() == DrawerSize.Small) this.SmallItem(it)

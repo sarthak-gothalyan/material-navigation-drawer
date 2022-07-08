@@ -16,7 +16,7 @@
 export enum DrawerSize {
 	Small = '20%',
 	Medium = '50%',
-	Big = '100%'
+	Big = '90%'
 }
 
 export class Properties {
@@ -66,6 +66,8 @@ export class MenuProperties {
 	private iconHeight: Length
 	private iconWidth: Length
 	private fontColor: string | Color
+	private titleFontSize: Length
+	private titleFontColor: string | Color
 	private backgroundColor: string | Color
 	private activeBackgroundColor: string | Color
 	private activeTextColor: string | Color
@@ -77,6 +79,8 @@ export class MenuProperties {
 		this.iconHeight = '24vp'
 		this.iconWidth = '24vp'
 		this.fontColor = Color.Black
+		this.titleFontSize = "21vp"
+		this.titleFontColor = Color.Black
 		this.backgroundColor = Color.White
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
@@ -116,8 +120,28 @@ export class MenuProperties {
 		return this
 	}
 
-	getFontColor(): Length {
+	getFontColor(): string | Color {
 		return this.fontColor
+	}
+
+	setTitleFontSize(titleFontSize: Length): MenuProperties {
+		if(titleFontSize == null || titleFontSize == undefined) titleFontSize = ""
+		this.titleFontSize = titleFontSize
+		return this
+	}
+
+	getTitleFontSize(): Length {
+		return this.titleFontSize
+	}
+
+	setTitleFontColor(titleFontColor: string | Color): MenuProperties {
+		if(titleFontColor == null || titleFontColor == undefined) titleFontColor = Color.Black
+		this.titleFontColor = titleFontColor
+		return this
+	}
+
+	getTitleFontColor(): string | Color {
+		return this.titleFontColor
 	}
 
 	setBackgroundColor(backgroundColor: string | Color): MenuProperties {
@@ -174,6 +198,8 @@ export class MenuProperties {
 		this.iconHeight = '0vp'
 		this.iconWidth = '0vp'
 		this.fontColor = Color.Black
+		this.titleFontSize = "0vp"
+		this.titleFontColor = Color.Black
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
 		this.padding = {}

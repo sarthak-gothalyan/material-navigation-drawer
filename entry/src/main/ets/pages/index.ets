@@ -20,13 +20,14 @@ import { DrawerSize, MenuOption, SideDrawer } from '@ohos/navigation-drawer'
 struct Index {
 	@State vis: boolean = false
 	menu: MenuOption[] = [
-		new MenuOption('1', "Send", 'pages/index', $r('app.media.send')),
-		new MenuOption('2', "Delete", 'pages/index', $r('app.media.delete')),
-
+		new MenuOption('1', "Inbox", 'pages/index', $r('app.media.inbox')),
+		new MenuOption('2', "Outbox", 'pages/index', $r('app.media.send')),
+		new MenuOption('3', "Favourites", 'pages/index', $r('app.media.favorite')),
+		new MenuOption('4', "Delete", 'pages/index', $r('app.media.delete')),
 	]
 	extraOptions: MenuOption[] = [
 		new MenuOption('6', "Settings", 'pages/index', $r('app.media.settings')),
-		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.settings'))
+		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
 	]
 	backgroundColor: string | Color = Color.White
 	model: SideDrawer.Model = new SideDrawer.Model()
@@ -38,10 +39,14 @@ struct Index {
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setIconHeight('24vp')
 
-		this.menuModel.setActiveBackgroundColor(Color.White)
-		this.menuModel.setActiveTextColor('#A020F0')
+		this.menuModel.setTitleFontSize("21vp")
+		this.menuModel.setTitleFontColor("#41454B")
+
+		this.menuModel.setActiveBackgroundColor('#A020F0')
+		this.menuModel.setActiveTextColor(Color.Black)
 		this.menuModel.setIconHeight('24vp')
 		this.menuModel.setIconWidth('24vp')
+		this.menuModel.setFontColor("#646364")
 		this.menuModel.setPadding('5vp')
 		this.menuModel.setBorderRadius('20vp')
 	}
@@ -58,14 +63,12 @@ struct Index {
 
 			SideDrawer({
 				menu: this.menu,
+				title: "Mail",
 				extraMenu: this.extraOptions,
-				selected: '2',
-				onSelect: (it: MenuOption) => {
-					console.log(it.getID() + '')
-				},
+				selected: '1',
 				visible: $vis,
 				model: this.model,
-				menuModel: this.menuModel
+				menuModel: this.menuModel,
 			})
 		}
 		.width('100%')
