@@ -79,7 +79,7 @@ export class MenuProperties {
 		this.iconHeight = '24vp'
 		this.iconWidth = '24vp'
 		this.fontColor = Color.Black
-		this.titleFontSize = "21vp"
+		this.titleFontSize = "21fp"
 		this.titleFontColor = Color.Black
 		this.backgroundColor = Color.White
 		this.activeBackgroundColor = Color.White
@@ -109,9 +109,9 @@ export class MenuProperties {
 	}
 
 	getFontSize(size: DrawerSize): Length {
-		if(size == DrawerSize.Small) return "16vp"
-		else if(size == DrawerSize.Medium) return "18vp"
-		return "20vp"
+		if(size == DrawerSize.Small) return "16fp"
+		else if(size == DrawerSize.Medium) return "18fp"
+		return "20fp"
 	}
 
 	setFontColor(fontColor: string | Color): MenuProperties {
@@ -198,7 +198,7 @@ export class MenuProperties {
 		this.iconHeight = '0vp'
 		this.iconWidth = '0vp'
 		this.fontColor = Color.Black
-		this.titleFontSize = "0vp"
+		this.titleFontSize = "0fp"
 		this.titleFontColor = Color.Black
 		this.activeBackgroundColor = Color.White
 		this.activeTextColor = Color.Black
@@ -226,7 +226,7 @@ export class HeaderProperties {
 		this.name = name
 		this.mail = mail
 		this.icon = icon
-		this.fontSize = '20vp'
+		this.fontSize = '20fp'
 		this.iconHeight = '24vp'
 		this.iconWidth = '24vp'
 		this.height = '100vp'
@@ -329,9 +329,9 @@ export class HeaderProperties {
 		this.name = ''
 		this.mail = ''
 		this.icon = ''
-		this.fontSize = '0vp'
-		this.iconHeight = '0vpvp'
-		this.iconWidth = '0vpvp'
+		this.fontSize = '0fp'
+		this.iconHeight = '0vp'
+		this.iconWidth = '0vp'
 		this.height = '0vp'
 		this.backgroundColor = Color.Black
 		this.borderRadius = 0

@@ -15,4 +15,4 @@
 
 export { MenuOption } from './src/main/ets/components/menuOption'
 export { DrawerSize } from './src/main/ets/components/properties'
-export { SideDrawer } from './src/main/ets/components/sideDrawer'
+export { Drawer } from './src/main/ets/components/sideDrawer'

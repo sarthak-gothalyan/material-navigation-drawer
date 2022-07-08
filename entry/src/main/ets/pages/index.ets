@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { DrawerSize, MenuOption, SideDrawer } from '@ohos/navigation-drawer'
+import { DrawerSize, MenuOption, Drawer } from '@ohos/navigation-drawer'
 
 @Entry
 @Component
@@ -30,8 +30,8 @@ struct Index {
 		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
 	]
 	backgroundColor: string | Color = Color.White
-	model: SideDrawer.Model = new SideDrawer.Model()
-	menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
+	model: Drawer.Model = new Drawer.Model()
+	menuModel: Drawer.MenuModel = new Drawer.MenuModel()
 
 	aboutToAppear() {
 		this.model.setSize(DrawerSize.Medium)
@@ -39,13 +39,11 @@ struct Index {
 		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setIconHeight('24vp')
 
-		this.menuModel.setTitleFontSize("21vp")
+		this.menuModel.setTitleFontSize("21fp")
 		this.menuModel.setTitleFontColor("#41454B")
 
 		this.menuModel.setActiveBackgroundColor('#A020F0')
 		this.menuModel.setActiveTextColor(Color.Black)
-		this.menuModel.setIconHeight('24vp')
-		this.menuModel.setIconWidth('24vp')
 		this.menuModel.setFontColor("#646364")
 		this.menuModel.setPadding('5vp')
 		this.menuModel.setBorderRadius('20vp')
@@ -61,7 +59,7 @@ struct Index {
 				})
 			}
 
-			SideDrawer({
+			Drawer({
 				menu: this.menu,
 				title: "Mail",
 				extraMenu: this.extraOptions,

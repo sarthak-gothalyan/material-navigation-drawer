@@ -17,22 +17,22 @@ import { MenuOption } from './menuOption'
 import { DrawerSize, Properties, MenuProperties, HeaderProperties } from './properties'
 
 @Component
-struct SideDrawer {
+struct Drawer {
 	menu: MenuOption[]
 	extraMenu: MenuOption[]
 	onSelect: (it: MenuOption) => void
 	title: string
 	@Link visible: boolean
 	@State selected: string | number = undefined
-	@State model: SideDrawer.Model = new SideDrawer.Model()
-	@State headerModel: SideDrawer.HeaderModel = undefined
-	@State menuModel: SideDrawer.MenuModel = new SideDrawer.MenuModel()
+	@State model: Drawer.Model = new Drawer.Model()
+	@State headerModel: Drawer.HeaderModel = undefined
+	@State menuModel: Drawer.MenuModel = new Drawer.MenuModel()
 
 	aboutToAppear() {
 		if(this.menu == null || this.menu == undefined) this.menu = []
 		if(this.extraMenu == null || this.extraMenu == undefined) this.extraMenu = []
-		if(this.model == null || this.model == undefined) this.model = new SideDrawer.Model()
-		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new SideDrawer.MenuModel()
+		if(this.model == null || this.model == undefined) this.model = new Drawer.Model()
+		if(this.menuModel == null || this.menuModel == undefined) this.menuModel = new Drawer.MenuModel()
 	}
 
 	@Builder
@@ -202,7 +202,7 @@ struct SideDrawer {
 	}
 }
 
-namespace SideDrawer {
+namespace Drawer {
 	export class Model extends Properties{
 		constructor() {
 			super()
@@ -222,4 +222,4 @@ namespace SideDrawer {
 	}
 }
 
-export { SideDrawer }
+export { Drawer }
