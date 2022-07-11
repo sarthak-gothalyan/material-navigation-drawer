@@ -38,7 +38,7 @@ struct Drawer {
 				.height(this.menuModel.getIconHeight())
 			if(!extra) {
 				if (this.selected == page.getID()) {
-					Flex({justifyContent: FlexAlign.Center, alignItems: FlexAlign.Center}) {
+					Flex({justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center}) {
 						Text(page.getValue())
 							.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))
 							.fontColor(this.selected != null && this.selected != undefined && this.selected == page.getID() ? this.menuModel.getActiveTextColor() : this.menuModel.getFontColor())

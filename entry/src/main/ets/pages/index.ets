@@ -20,7 +20,7 @@ import { DrawerSize, MenuOption, Drawer } from '@ohos/navigation-drawer'
 struct Index {
 	@State vis: boolean = false
 	menu: MenuOption[] = [
-		new MenuOption('1', "Inbox asdfadfasdfadfasdfadfasf", 'pages/index', $r('app.media.inbox')),
+		new MenuOption('1', "Inbox", 'pages/index', $r('app.media.inbox')),
 		new MenuOption('2', "Outbox", 'pages/index', $r('app.media.send')),
 		new MenuOption('3', "Favourites", 'pages/index', $r('app.media.favorite')),
 		new MenuOption('4', "Delete", 'pages/index', $r('app.media.delete')),
@@ -42,9 +42,6 @@ struct Index {
 		this.model.setShadowOpacity(0.2)
 		this.model.setMenu(this.menu)
 		this.model.setExtraMenu(this.extraOptions)
-
-		this.menuModel.setIconWidth('50vp')
-		this.menuModel.setIconHeight('50vp')
 
 		this.menuModel.setActiveBackgroundColor('#A020F0')
 		this.menuModel.setActiveTextColor(Color.Black)
