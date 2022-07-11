@@ -20,7 +20,7 @@ import { DrawerSize, MenuOption, Drawer } from '@ohos/navigation-drawer'
 struct Index {
 	@State vis: boolean = false
 	menu: MenuOption[] = [
-		new MenuOption('1', "Inbox", 'pages/index', $r('app.media.inbox')),
+		new MenuOption('1', "Inbox asdfadfasdfadfasdfadfasf", 'pages/index', $r('app.media.inbox')),
 		new MenuOption('2', "Outbox", 'pages/index', $r('app.media.send')),
 		new MenuOption('3', "Favourites", 'pages/index', $r('app.media.favorite')),
 		new MenuOption('4', "Delete", 'pages/index', $r('app.media.delete')),
@@ -40,9 +40,11 @@ struct Index {
 		this.model.setTitle("Mail")
 		this.model.setShadowColor(Color.Black)
 		this.model.setShadowOpacity(0.2)
+		this.model.setMenu(this.menu)
+		this.model.setExtraMenu(this.extraOptions)
 
-		this.menuModel.setIconWidth('24vp')
-		this.menuModel.setIconHeight('24vp')
+		this.menuModel.setIconWidth('50vp')
+		this.menuModel.setIconHeight('50vp')
 
 		this.menuModel.setActiveBackgroundColor('#A020F0')
 		this.menuModel.setActiveTextColor(Color.Black)
@@ -62,8 +64,6 @@ struct Index {
 			}
 
 			Drawer({
-				menu: this.menu,
-				extraMenu: this.extraOptions,
 				selected: '1',
 				visible: $vis,
 				model: this.model,
@@ -72,5 +72,15 @@ struct Index {
 		}
 		.width('100%')
 		.height('100%')
+	}
+}
+
+@Component
+struct item {
+	build() {
+		Flex() {
+			Text("test subject").fontSize("20vp")
+			Text("ha bhai test subject hu").fontSize("20vp")
+		}
 	}
 }
