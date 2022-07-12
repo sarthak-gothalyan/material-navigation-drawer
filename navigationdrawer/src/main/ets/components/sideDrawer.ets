@@ -50,7 +50,7 @@ struct Drawer {
 			}
 		}
 		.width('100%')
-		.backgroundColor(!extra && this.selected != null && this.selected != undefined && this.selected != null && this.selected != undefined && this.selected == page.getID() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
+		.backgroundColor(!extra && this.selected != null && this.selected != undefined && this.selected == page.getID() ? this.menuModel.getActiveBackgroundColor() : this.menuModel.getBackgroundColor())
 		.borderRadius(this.menuModel.getBorderRadius())
 		.padding(this.menuModel.getPadding())
 		.onClick(() => {
@@ -67,7 +67,7 @@ struct Drawer {
 				.objectFit(ImageFit.Contain)
 				.width(this.menuModel.getIconWidth())
 				.height(this.menuModel.getIconHeight())
-				.margin({ right: 20 })
+				.margin({ right: '20vp' })
 			Flex() {
 				Text(page.getValue())
 					.fontSize(this.menuModel.getFontSize(this.model.getSizeEnum()))

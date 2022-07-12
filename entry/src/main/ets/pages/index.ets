@@ -18,7 +18,7 @@ import { DrawerSize, MenuOption, Drawer } from '@ohos/navigation-drawer'
 @Entry
 @Component
 struct Index {
-	@State vis: boolean = false
+	@State visible: boolean = false
 	menu: MenuOption[] = [
 		new MenuOption('1', "Inbox", 'pages/index', $r('app.media.inbox')),
 		new MenuOption('2', "Outbox", 'pages/index', $r('app.media.send')),
@@ -34,7 +34,7 @@ struct Index {
 	menuModel: Drawer.MenuModel = new Drawer.MenuModel()
 
 	aboutToAppear() {
-		this.model.setSize(DrawerSize.Medium)
+		this.model.setSize(DrawerSize.Big)
 		this.model.setTitleFontSize("21fp")
 		this.model.setTitleFontColor("#41454B")
 		this.model.setTitle("Mail")
@@ -55,29 +55,19 @@ struct Index {
 			Column() {
 				Button('Open side Drawer').onClick(() => {
 					animateTo({ duration: 500 }, () => {
-						this.vis = !this.vis
+						this.visible = !this.visible
 					})
 				})
 			}
 
 			Drawer({
 				selected: '1',
-				visible: $vis,
+				visible: $visible,
 				model: this.model,
 				menuModel: this.menuModel,
 			})
 		}
 		.width('100%')
 		.height('100%')
-	}
-}
-
-@Component
-struct item {
-	build() {
-		Flex() {
-			Text("test subject").fontSize("20vp")
-			Text("ha bhai test subject hu").fontSize("20vp")
-		}
 	}
 }

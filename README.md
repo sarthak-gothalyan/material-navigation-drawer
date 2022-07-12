@@ -67,7 +67,7 @@ build() {
     // Drawer will be called next
     Drawer({
       selected: '1',
-      visible: $vis,  // Pass reference to variable to control drawer visibility
+      visible: $visible,  // Pass reference to variable to control drawer visibility
       model: this.model,
       menuModel: this.menuModel,
     })
@@ -78,7 +78,9 @@ build() {
 }
 ```
 
-![Component](screenshots/drawer.png)
+![Component](screenshots/drawer_small.png)
+![Component](screenshots/drawer_medium.png)
+![Component](screenshots/drawer_big.png)
 
 ## Compatibility
 
