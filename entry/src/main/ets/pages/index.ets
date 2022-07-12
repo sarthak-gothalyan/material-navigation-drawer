@@ -20,34 +20,38 @@ import { DrawerSize, MenuOption, Drawer } from '@ohos/navigation-drawer'
 struct Index {
 	@State visible: boolean = false
 	menu: MenuOption[] = [
-		new MenuOption('1', "Inbox", 'pages/index', $r('app.media.inbox')),
-		new MenuOption('2', "Outbox", 'pages/index', $r('app.media.send')),
-		new MenuOption('3', "Favourites", 'pages/index', $r('app.media.favorite')),
-		new MenuOption('4', "Delete", 'pages/index', $r('app.media.delete')),
+		new MenuOption('x', "x", 'x'),
+		new MenuOption('2', "Outbox", $r('app.media.send')),
+		new MenuOption('3', "Favourites", $r('app.media.favorite')),
+		new MenuOption('4', "Delete", $r('app.media.delete')),
 	]
 	extraOptions: MenuOption[] = [
-		new MenuOption('6', "Settings", 'pages/index', $r('app.media.settings')),
-		new MenuOption('7', "Help & Feedback", 'pages/index', $r('app.media.help'))
+		new MenuOption('6', "Settings", $r('app.media.settings')),
+		new MenuOption('7', "Help & Feedback", $r('app.media.help'))
 	]
 	backgroundColor: string | Color = Color.White
 	model: Drawer.Model = new Drawer.Model()
 	menuModel: Drawer.MenuModel = new Drawer.MenuModel()
 
 	aboutToAppear() {
-		this.model.setSize(DrawerSize.Big)
-		this.model.setTitleFontSize("21fp")
+		this.model.setSize(DrawerSize.Medium)
+		this.model.setTitleFontSize("25fp")
 		this.model.setTitleFontColor("#41454B")
 		this.model.setTitle("Mail")
 		this.model.setShadowColor(Color.Black)
 		this.model.setShadowOpacity(0.2)
+		this.model.setBackgroundColor(Color.White)
 		this.model.setMenu(this.menu)
 		this.model.setExtraMenu(this.extraOptions)
 
 		this.menuModel.setActiveBackgroundColor('#A020F0')
 		this.menuModel.setActiveTextColor(Color.Black)
 		this.menuModel.setFontColor("#646364")
+		this.menuModel.setBackgroundColor(Color.White)
 		this.menuModel.setPadding('5vp')
 		this.menuModel.setBorderRadius('20vp')
+
+		this.menu[0].setID('1').setValue("Inbox").setIcon($r("app.media.inbox"))
 	}
 
 	build() {
